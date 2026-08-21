@@ -44,29 +44,29 @@ export function ColorStep({ onGenerate }: ColorStepProps) {
 
   return (
     <section className="animate-in fade-in duration-300">
-      <div className="mb-8 text-center sm:text-left">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-stone-900 tracking-tight">
-          Welke kleur wil je proberen?
-        </h2>
-        <p className="mt-3 text-stone-600">
-          Kies een kleur of materiaal en bekijk hoe deze op jouw eigen keuken staat.
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <h2 className="text-sm font-semibold text-slate-900">2. Welke kleur wil je proberen?</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Kies een kleur, bekijk het resultaat en vink maximaal 2 samples aan.
         </p>
-      </div>
 
-      <MaterialGrid
-        activeMaterialId={activeMaterialId}
-        viewedMaterialIds={viewedMaterialIds}
-        onSelect={handleSelect}
-      />
-
-      {material && (
-        <div className="sticky bottom-0 mt-8 -mx-4 px-4 py-4 bg-gradient-to-t from-[#F7F5F2] via-[#F7F5F2] to-transparent sm:static sm:mx-0 sm:px-0 sm:py-0 sm:bg-none">
-          <Button type="button" size="lg" className="w-full sm:w-auto" onClick={handleGenerate}>
-            <Sparkles className="h-4 w-4" />
-            Bekijk deze kleur op mijn keuken
-          </Button>
+        <div className="mt-5">
+          <MaterialGrid
+            activeMaterialId={activeMaterialId}
+            viewedMaterialIds={viewedMaterialIds}
+            onSelect={handleSelect}
+          />
         </div>
-      )}
+
+        {material && (
+          <div className="sticky bottom-0 mt-6 -mx-5 border-t border-slate-100 bg-white/95 px-5 py-4 backdrop-blur sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0">
+            <Button type="button" size="lg" className="w-full sm:w-auto" onClick={handleGenerate}>
+              <Sparkles className="h-4 w-4" />
+              Bekijk deze kleur op mijn keuken
+            </Button>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

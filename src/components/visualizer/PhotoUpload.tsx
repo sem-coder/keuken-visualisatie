@@ -57,11 +57,11 @@ export function PhotoUpload({ onSelect }: PhotoUploadProps) {
         onClick={() => inputRef.current?.click()}
         className={cn(
           'cursor-pointer rounded-2xl border-2 border-dashed bg-white p-8 sm:p-12 text-center transition-all',
-          isDragging ? 'border-stone-500 bg-stone-50' : 'border-stone-200 hover:border-stone-300',
+          isDragging ? 'border-amber-400 bg-amber-50/50' : 'border-slate-200 hover:border-amber-400 hover:bg-amber-50/30',
         )}
       >
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-stone-100">
-          <Camera className="h-8 w-8 text-stone-600" />
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-50">
+          <Camera className="h-8 w-8 text-amber-700" />
         </div>
         <p className="text-lg font-medium text-stone-900">Upload jouw keukenfoto</p>
         <p className="mt-2 text-sm text-stone-500">

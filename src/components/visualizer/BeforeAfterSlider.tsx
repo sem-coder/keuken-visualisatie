@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import {
   useCallback,
   useEffect,
@@ -74,7 +73,7 @@ export function BeforeAfterSlider({
     <div
       ref={containerRef}
       className={cn(
-        'relative aspect-[4/3] w-full select-none overflow-hidden rounded-2xl border border-stone-200 bg-stone-100 touch-none',
+        'relative aspect-[4/3] w-full select-none overflow-hidden rounded-xl border border-slate-200 bg-slate-100 touch-none shadow-sm',
         className,
       )}
       role="slider"
@@ -85,21 +84,33 @@ export function BeforeAfterSlider({
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      <div className="absolute inset-0">
-        <Image src={afterSrc} alt={afterLabel} fill className="object-contain" unoptimized priority />
-      </div>
+      {/* After image — full background */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={afterSrc}
+        alt={afterLabel}
+        className="absolute inset-0 h-full w-full object-contain"
+        draggable={false}
+      />
 
+      {/* Before image — clipped */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
-        <Image src={beforeSrc} alt={beforeLabel} fill className="object-contain" unoptimized priority />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={beforeSrc}
+          alt={beforeLabel}
+          className="absolute inset-0 h-full w-full object-contain"
+          draggable={false}
+        />
       </div>
 
-      <span className="absolute left-3 top-3 rounded-md bg-black/50 px-2 py-1 text-xs font-medium text-white">
+      <span className="pointer-events-none absolute left-3 top-3 z-20 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white">
         {beforeLabel}
       </span>
-      <span className="absolute right-3 top-3 rounded-md bg-black/50 px-2 py-1 text-xs font-medium text-white">
+      <span className="pointer-events-none absolute right-3 top-3 z-20 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white">
         {afterLabel}
       </span>
 
@@ -110,7 +121,7 @@ export function BeforeAfterSlider({
         <button
           type="button"
           aria-label="Sleep om te vergelijken"
-          className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-stone-900 shadow-xl cursor-ew-resize"
+          className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-amber-700 shadow-xl cursor-ew-resize"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}

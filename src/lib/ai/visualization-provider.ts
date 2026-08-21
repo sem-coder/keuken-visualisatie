@@ -9,6 +9,8 @@ export interface VisualizationRequest {
 export interface VisualizationResult {
   imageUrl: string;
   storageKey?: string;
+  imageBase64: string;
+  mimeType: string;
 }
 
 export interface VisualizationProvider {

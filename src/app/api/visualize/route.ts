@@ -50,8 +50,11 @@ export async function POST(request: Request) {
       material,
     });
 
+    const imageDataUrl = `data:${result.mimeType};base64,${result.imageBase64}`;
+
     return NextResponse.json({
-      imageUrl: result.imageUrl,
+      imageUrl: imageDataUrl,
+      storageKey: result.storageKey,
       kitchenImageKey: kitchenStored.key,
       mockMode: !process.env.OPENAI_API_KEY,
     });

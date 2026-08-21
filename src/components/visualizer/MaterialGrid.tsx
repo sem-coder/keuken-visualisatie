@@ -4,6 +4,9 @@ import { useMemo, useState } from 'react';
 import { MaterialCard } from '@/components/visualizer/MaterialCard';
 import { MaterialFilters } from '@/components/visualizer/MaterialFilters';
 import { getActiveMaterials } from '@/lib/materials';
+import { config } from '@/lib/config';
+import { sendEmbedEvent } from '@/lib/embed/events';
+import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import type { MaterialFilter } from '@/types/visualizer';
 
 interface MaterialGridProps {
@@ -19,6 +22,12 @@ export function MaterialGrid({
 }: MaterialGridProps) {
   const [filter, setFilter] = useState<MaterialFilter>('all');
   const [search, setSearch] = useState('');
+  const {
+    visualizations,
+    selectedSampleIds,
+    toggleSample,
+  } = useKitchenVisualizer();
+  const [sampleError, setSampleError] = useState<string | null>(null);
 
   const materials = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -39,14 +48,38 @@ export function MaterialGrid({
     });
   }, [filter, search]);
 
+  const handleToggleSample = (materialId: string) => {
+    const error = toggleSample(materialId);
+    if (error) {
+      setSampleError(error);
+      return;
+    }
+    setSampleError(null);
+    const isNowSelected = useKitchenVisualizer.getState().selectedSampleIds.includes(materialId);
+    sendEmbedEvent(isNowSelected ? 'sample_selected' : 'sample_removed', { materialId });
+  };
+
+  const samplesFull = selectedSampleIds.length >= config.maxSamples;
+
   return (
     <div>
+      {selectedSampleIds.length > 0 && (
+        <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <strong>
+            {selectedSampleIds.length} van {config.maxSamples} samples gekozen
+          </strong>
+          {selectedSampleIds.length < config.maxSamples &&
+            ' — bekijk nog een kleur en vink je tweede sample aan.'}
+        </div>
+      )}
+
       <MaterialFilters
         activeFilter={filter}
         search={search}
         onFilterChange={setFilter}
         onSearchChange={setSearch}
       />
+
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
         {materials.map((material) => (
           <MaterialCard
@@ -54,12 +87,19 @@ export function MaterialGrid({
             material={material}
             selected={activeMaterialId === material.id}
             viewed={viewedMaterialIds.includes(material.id)}
+            isSampleSelected={selectedSampleIds.includes(material.id)}
+            hasVisualization={Boolean(visualizations[material.id])}
+            samplesFull={samplesFull}
             onSelect={onSelect}
+            onToggleSample={handleToggleSample}
           />
         ))}
       </div>
+
+      {sampleError && <p className="mt-3 text-sm text-red-600">{sampleError}</p>}
+
       {materials.length === 0 && (
-        <p className="text-center text-stone-500 py-8">Geen materialen gevonden.</p>
+        <p className="text-center text-slate-500 py-8">Geen materialen gevonden.</p>
       )}
     </div>
   );

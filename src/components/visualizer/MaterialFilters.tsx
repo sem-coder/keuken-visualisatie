@@ -46,8 +46,8 @@ export function MaterialFilters({
             className={cn(
               'rounded-full px-4 py-2 text-sm transition-colors min-h-[40px]',
               activeFilter === filter.value
-                ? 'bg-stone-900 text-white'
-                : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-50',
+                ? 'bg-amber-700 text-white'
+                : 'bg-white text-slate-600 border border-slate-200 hover:bg-amber-50',
             )}
           >
             {filter.label}

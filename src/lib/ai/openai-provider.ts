@@ -58,6 +58,8 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
     return {
       imageUrl: stored.url,
       storageKey: stored.key,
+      imageBase64: b64,
+      mimeType: 'image/jpeg',
     };
   }
 }
@@ -76,6 +78,8 @@ export class MockVisualizationProvider implements VisualizationProvider {
     return {
       imageUrl: stored.url,
       storageKey: stored.key,
+      imageBase64: buffer.toString('base64'),
+      mimeType,
     };
   }
 }
