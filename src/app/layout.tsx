@@ -5,14 +5,18 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Keuken Visualisatie Tool',
-  description: 'Visualiseer keukenfronten in verschillende wrap-afwerkingen.',
+  title: 'Keuken Visualisatie',
+  description: 'Bekijk jouw favoriete kleur op je eigen keuken en vraag samples aan.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="nl">
-      <body className={`${inter.className} antialiased text-slate-900`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }
