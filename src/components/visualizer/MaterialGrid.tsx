@@ -23,7 +23,6 @@ export function MaterialGrid({
   const [filter, setFilter] = useState<MaterialFilter>('all');
   const [search, setSearch] = useState('');
   const {
-    visualizations,
     selectedSampleIds,
     toggleSample,
   } = useKitchenVisualizer();
@@ -68,8 +67,9 @@ export function MaterialGrid({
           <strong>
             {selectedSampleIds.length} van {config.maxSamples} samples gekozen
           </strong>
-          {selectedSampleIds.length < config.maxSamples &&
-            ' — bekijk nog een kleur en vink je tweede sample aan.'}
+          {selectedSampleIds.length < config.maxSamples
+            ? ' — vink nog een kleur aan linksboven op de kaart.'
+            : ' — je kunt nu visualiseren of direct je samples aanvragen.'}
         </div>
       )}
 
@@ -88,7 +88,6 @@ export function MaterialGrid({
             selected={activeMaterialId === material.id}
             viewed={viewedMaterialIds.includes(material.id)}
             isSampleSelected={selectedSampleIds.includes(material.id)}
-            hasVisualization={Boolean(visualizations[material.id])}
             samplesFull={samplesFull}
             onSelect={onSelect}
             onToggleSample={handleToggleSample}

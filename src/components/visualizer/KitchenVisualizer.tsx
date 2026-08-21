@@ -24,7 +24,6 @@ export function KitchenVisualizer() {
     step,
     originalImage,
     originalPreviewUrl,
-    visualizations,
     selectedSampleIds,
     setStep,
     setActiveMaterialId,
@@ -57,16 +56,18 @@ export function KitchenVisualizer() {
     return () => window.removeEventListener('message', handleMessage);
   }, [setAttribution]);
 
-  const handleGenerate = useCallback(
-    async (materialId: string) => {
+  const generateMaterialVisualization = useCallback(
+    async (materialId: string, options?: { navigateToResult?: boolean }) => {
       const material = getMaterialById(materialId);
-      if (!material || !originalImage) return;
+      if (!material || !originalImage) return false;
 
-      const cached = visualizations[materialId];
+      const cached = useKitchenVisualizer.getState().visualizations[materialId];
       if (cached) {
-        setActiveMaterialId(materialId);
-        setStep('result');
-        return;
+        if (options?.navigateToResult !== false) {
+          setActiveMaterialId(materialId);
+          setStep('result');
+        }
+        return true;
       }
 
       setActiveMaterialId(materialId);
@@ -107,7 +108,12 @@ export function KitchenVisualizer() {
 
         addVisualization({ materialId, imageUrl });
         sendEmbedEvent('visualization_completed', { materialId });
-        setStep('result');
+
+        if (options?.navigateToResult !== false) {
+          setStep('result');
+        }
+
+        return true;
       } catch (error) {
         setGenerationFailed(true);
         setGenerationError(
@@ -115,12 +121,12 @@ export function KitchenVisualizer() {
         );
         sendEmbedEvent('visualization_failed', { materialId });
         setStep('colors');
+        return false;
       }
     },
     [
       originalImage,
       originalPreviewUrl,
-      visualizations,
       setActiveMaterialId,
       setStep,
       setGenerationError,
@@ -128,6 +134,30 @@ export function KitchenVisualizer() {
       setKitchenImageStorageKey,
     ],
   );
+
+  const handleGenerate = useCallback(
+    (materialId: string) => generateMaterialVisualization(materialId),
+    [generateMaterialVisualization],
+  );
+
+  const handleGenerateSelected = useCallback(async () => {
+    const { selectedSampleIds, visualizations } = useKitchenVisualizer.getState();
+    const missing = selectedSampleIds.filter((id) => !visualizations[id]);
+
+    if (missing.length === 0) {
+      setStep('samples');
+      return;
+    }
+
+    for (const materialId of missing) {
+      const success = await generateMaterialVisualization(materialId, {
+        navigateToResult: false,
+      });
+      if (!success) return;
+    }
+
+    setStep('samples');
+  }, [generateMaterialVisualization, setStep]);
 
   const retryGeneration = () => {
     const { activeMaterialId } = useKitchenVisualizer.getState();
@@ -178,7 +208,9 @@ export function KitchenVisualizer() {
       )}
 
       {step === 'photo' && <PhotoStep />}
-      {step === 'colors' && <ColorStep onGenerate={handleGenerate} />}
+      {step === 'colors' && (
+        <ColorStep onGenerate={handleGenerate} onGenerateSelected={handleGenerateSelected} />
+      )}
       {step === 'generating' && originalPreviewUrl && (
         <GeneratingState originalImageUrl={originalPreviewUrl} />
       )}

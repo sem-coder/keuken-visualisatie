@@ -1,10 +1,10 @@
 'use client';
 
-import { Check } from 'lucide-react';
 import { BeforeAfterSlider } from '@/components/visualizer/BeforeAfterSlider';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
+import { Check } from 'lucide-react';
 
 export function SelectedSamples() {
   const { selectedSampleIds, visualizations, originalPreviewUrl, removeSample } =
@@ -53,8 +53,17 @@ export function SelectedSamples() {
                 />
               </div>
             ) : (
-              <div className="flex aspect-[4/3] items-center justify-center bg-slate-50 text-sm text-slate-500">
-                Visualisatie ontbreekt — bekijk deze kleur eerst
+              <div
+                className="mx-3 my-3 flex aspect-[4/3] items-center justify-center rounded-lg border border-dashed border-slate-200"
+                style={{ backgroundColor: `${material.preview}33` }}
+              >
+                <div className="text-center px-4">
+                  <div
+                    className="mx-auto mb-2 h-14 w-14 rounded-xl border border-slate-200 shadow-sm"
+                    style={{ backgroundColor: material.preview }}
+                  />
+                  <p className="text-sm text-slate-600">Visualisatie volgt na genereren</p>
+                </div>
               </div>
             )}
 
