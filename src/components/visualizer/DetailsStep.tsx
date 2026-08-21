@@ -2,21 +2,29 @@
 
 import { SampleRequestForm } from '@/components/visualizer/SampleRequestForm';
 import { SelectedSamples } from '@/components/visualizer/SelectedSamples';
+import { StepBackButton } from '@/components/visualizer/StepBackButton';
 
 export function DetailsStep() {
   return (
     <section className="animate-in fade-in duration-300">
-      <div className="mb-8">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-stone-900 tracking-tight">
+      <StepBackButton label="Terug naar samples" to="samples" />
+
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <h2 className="text-xl font-bold text-slate-900">
           Waar mogen we de samples naartoe sturen?
         </h2>
-      </div>
+        <p className="mt-2 text-sm text-slate-600">
+          Nog een laatste check van je visualisaties en samples.
+        </p>
 
-      <div className="mb-8">
-        <SelectedSamples />
-      </div>
+        <div className="mt-6">
+          <SelectedSamples />
+        </div>
 
-      <SampleRequestForm />
+        <div className="mt-8">
+          <SampleRequestForm />
+        </div>
+      </div>
     </section>
   );
 }

@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { MaterialGrid } from '@/components/visualizer/MaterialGrid';
+import { StepBackButton } from '@/components/visualizer/StepBackButton';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
 import { sendEmbedEvent } from '@/lib/embed/events';
@@ -44,11 +45,22 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
     onGenerate(activeMaterialId);
   };
 
+  const handleContinueToSamples = () => {
+    const missing = selectedSampleIds.filter((id) => !visualizations[id]);
+    if (missing.length > 0) {
+      onGenerateSelected?.();
+      return;
+    }
+    setStep('samples');
+  };
+
   const material = activeMaterialId ? getMaterialById(activeMaterialId) : null;
   const twoSamplesSelected = selectedSampleIds.length === config.maxSamples;
 
   return (
     <section className="animate-in fade-in duration-300">
+      <StepBackButton label="Terug naar foto" to="photo" />
+
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
         <h2 className="text-sm font-semibold text-slate-900">2. Welke kleur wil je proberen?</h2>
         <p className="mt-2 text-sm text-slate-600">
@@ -81,9 +93,9 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
                 size="lg"
                 variant="secondary"
                 className="w-full sm:flex-1"
-                onClick={() => setStep('samples')}
+                onClick={handleContinueToSamples}
               >
-                Samples aanvragen
+                Naar sample-overzicht
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>

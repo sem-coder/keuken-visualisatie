@@ -215,7 +215,9 @@ export function KitchenVisualizer() {
         <GeneratingState originalImageUrl={originalPreviewUrl} />
       )}
       {step === 'result' && <ResultStep />}
-      {step === 'samples' && <SampleSelection />}
+      {step === 'samples' && (
+        <SampleSelection onGenerateSelected={handleGenerateSelected} />
+      )}
       {step === 'details' && <DetailsStep />}
       {step === 'success' && <SuccessStep />}
 

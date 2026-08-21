@@ -4,6 +4,7 @@ import { Check, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { BeforeAfterSlider } from '@/components/visualizer/BeforeAfterSlider';
+import { StepBackButton } from '@/components/visualizer/StepBackButton';
 import { SelectedSamples } from '@/components/visualizer/SelectedSamples';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
@@ -48,6 +49,8 @@ export function ResultStep() {
 
   return (
     <section className="animate-in fade-in duration-300">
+      <StepBackButton label="Terug naar kleuren" to="colors" />
+
       <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
