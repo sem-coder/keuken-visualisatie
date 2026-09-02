@@ -11,6 +11,14 @@ export interface VisualizationResult {
   storageKey?: string;
   imageBase64: string;
   mimeType: string;
+  usage?: {
+    inputTokens: number;
+    outputTokens: number;
+    totalTokens: number;
+  };
+  mockMode?: boolean;
+  model?: string;
+  quality?: string;
 }
 
 export interface VisualizationProvider {

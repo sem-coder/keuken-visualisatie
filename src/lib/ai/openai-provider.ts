@@ -31,15 +31,17 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
     const mimeType = mimeFromRequest(request);
     const prompt = buildKitchenVisualizationPrompt(request.material);
     const storage = getMockStorage();
+    const model = config.openAiModel;
+    const quality = 'high';
 
     const file = await toFile(buffer, 'kitchen.jpg', { type: mimeType });
 
     const response = await this.client.images.edit({
-      model: config.openAiModel,
+      model,
       image: file,
       prompt,
       input_fidelity: 'high',
-      quality: 'high',
+      quality,
       size: 'auto',
       output_format: 'jpeg',
     });
@@ -55,11 +57,21 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
       prefix: 'visualizations',
     });
 
+    const usage = response.usage;
+
     return {
       imageUrl: stored.url,
       storageKey: stored.key,
       imageBase64: b64,
       mimeType: 'image/jpeg',
+      mockMode: false,
+      model,
+      quality,
+      usage: {
+        inputTokens: usage?.input_tokens ?? 0,
+        outputTokens: usage?.output_tokens ?? 0,
+        totalTokens: usage?.total_tokens ?? 0,
+      },
     };
   }
 }
@@ -80,6 +92,14 @@ export class MockVisualizationProvider implements VisualizationProvider {
       storageKey: stored.key,
       imageBase64: buffer.toString('base64'),
       mimeType,
+      mockMode: true,
+      model: 'mock',
+      quality: 'mock',
+      usage: {
+        inputTokens: 0,
+        outputTokens: 0,
+        totalTokens: 0,
+      },
     };
   }
 }

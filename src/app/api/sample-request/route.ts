@@ -1,6 +1,8 @@
 import { randomUUID } from 'crypto';
 import { NextResponse } from 'next/server';
 import type { SampleRequestPayload } from '@/types/visualizer';
+import { estimateSampleRequestCostUsd } from '@/lib/analytics/cost';
+import { getRecentVisualizations, logSampleRequestEvent } from '@/lib/analytics/store';
 
 export const runtime = 'nodejs';
 
@@ -62,6 +64,21 @@ export async function POST(request: Request) {
 
     const { data } = validation;
     const requestId = randomUUID();
+    const sampleIds = data.samples.map((sample) => sample.id);
+    const recentVisualizations = await getRecentVisualizations();
+    const estimatedCostUsd = estimateSampleRequestCostUsd(sampleIds, recentVisualizations);
+
+    await logSampleRequestEvent({
+      requestId,
+      sampleCount: data.samples.length,
+      sampleIds,
+      sampleCodes: data.samples.map((sample) => sample.code),
+      customerEmail: data.customer.email,
+      visualizationCount: sampleIds.filter((id) =>
+        recentVisualizations.some((event) => event.materialId === id && event.success),
+      ).length,
+      estimatedCostUsd,
+    });
 
     const webhookUrl = process.env.SAMPLE_WEBHOOK_URL;
     if (webhookUrl) {
@@ -70,8 +87,6 @@ export async function POST(request: Request) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, requestId, submittedAt: new Date().toISOString() }),
       });
-    } else {
-      console.info('Sample request received:', { requestId, samples: data.samples.length });
     }
 
     return NextResponse.json({ requestId, success: true });
