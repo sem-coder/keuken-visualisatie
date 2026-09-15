@@ -67,7 +67,7 @@ export function SelectedSamples() {
               </div>
             )}
 
-            <div className="flex items-center gap-2 border-t border-slate-100 px-4 py-2 text-xs text-amber-800 bg-amber-50">
+            <div className="flex items-center gap-2 border-t border-slate-100 px-4 py-2 text-xs text-brand-green-800 bg-brand-green-50">
               <Check className="h-3.5 w-3.5" />
               Sample {selectedSampleIds.indexOf(id) + 1} van {config.maxSamples}
             </div>

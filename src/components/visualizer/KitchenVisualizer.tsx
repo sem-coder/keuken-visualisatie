@@ -31,6 +31,7 @@ export function KitchenVisualizer() {
     setKitchenImageStorageKey,
     setGenerationError,
     setAttribution,
+    setClientContext,
     generationError,
   } = useKitchenVisualizer();
 
@@ -44,6 +45,23 @@ export function KitchenVisualizer() {
     sendEmbedEvent('visualizer_view');
     setAttribution(parseAttributionFromSearch(window.location.search));
 
+    const params = new URLSearchParams(window.location.search);
+    const clientSlug = params.get('client')?.trim().toLowerCase();
+    if (clientSlug) {
+      void fetch(`/api/clients/${encodeURIComponent(clientSlug)}`)
+        .then((response) => (response.ok ? response.json() : null))
+        .then((client) => {
+          if (client && typeof client.slug === 'string') {
+            setClientContext({
+              slug: client.slug,
+              name: client.name,
+              websiteUrl: client.websiteUrl,
+            });
+          }
+        })
+        .catch(() => undefined);
+    }
+
     const handleMessage = (event: MessageEvent) => {
       if (!isParentMessage(event.data)) return;
       if (event.data.type === 'kitchen-visualizer-attribution') {
@@ -54,10 +72,13 @@ export function KitchenVisualizer() {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [setAttribution]);
+  }, [setAttribution, setClientContext]);
 
   const generateMaterialVisualization = useCallback(
-    async (materialId: string, options?: { navigateToResult?: boolean }) => {
+    async (
+      materialId: string,
+      options?: { navigateToResult?: boolean; silent?: boolean },
+    ) => {
       const material = getMaterialById(materialId);
       if (!material || !originalImage) return false;
 
@@ -73,7 +94,9 @@ export function KitchenVisualizer() {
       setActiveMaterialId(materialId);
       setGenerationError(null);
       setGenerationFailed(false);
-      setStep('generating');
+      if (!options?.silent) {
+        setStep('generating');
+      }
       sendEmbedEvent('visualization_started', { materialId });
 
       const formData = new FormData();
@@ -149,15 +172,25 @@ export function KitchenVisualizer() {
       return;
     }
 
-    for (const materialId of missing) {
-      const success = await generateMaterialVisualization(materialId, {
-        navigateToResult: false,
-      });
-      if (!success) return;
+    setStep('generating');
+    setGenerationError(null);
+    setGenerationFailed(false);
+
+    const results = await Promise.all(
+      missing.map((materialId) =>
+        generateMaterialVisualization(materialId, {
+          navigateToResult: false,
+          silent: true,
+        }),
+      ),
+    );
+
+    if (results.some((success) => !success)) {
+      return;
     }
 
     setStep('samples');
-  }, [generateMaterialVisualization, setStep]);
+  }, [generateMaterialVisualization, setStep, setGenerationError, setGenerationFailed]);
 
   const retryGeneration = () => {
     const { activeMaterialId } = useKitchenVisualizer.getState();
@@ -165,13 +198,18 @@ export function KitchenVisualizer() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 lg:py-12">
+    <>
+      <div className="h-1 w-full bg-brand-blue" aria-hidden />
+      <div className="mx-auto max-w-6xl px-4 py-8 lg:py-12">
       <header className="mb-10">
-        <p className="text-sm font-semibold uppercase tracking-wider text-amber-700">
+        <p className="text-sm font-semibold uppercase tracking-wider text-brand-blue">
           Keuken visualisatie
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl">
-          Bekijk jouw favoriete kleur op je eigen keuken
+          <span className="inline bg-brand-green-500 px-2 py-0.5 text-white">
+            Bekijk jouw favoriete kleur
+          </span>{' '}
+          op je eigen keuken
         </h1>
         <p className="mt-3 max-w-2xl text-slate-600">
           Upload een foto van je keuken, probeer verschillende kleuren uit en bestel jouw
@@ -179,15 +217,15 @@ export function KitchenVisualizer() {
         </p>
         <ul className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600">
           <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-green-500" />
             Gebruik je eigen keukenfoto
           </li>
           <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-green-500" />
             Vergelijk voor en na
           </li>
           <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-green-500" />
             Kies maximaal 2{config.showFreeSamples ? ' gratis' : ''} samples
           </li>
         </ul>
@@ -226,6 +264,7 @@ export function KitchenVisualizer() {
         step !== 'success' &&
         step !== 'result' &&
         step !== 'samples' && <SampleStickyBar />}
-    </div>
+      </div>
+    </>
   );
 }

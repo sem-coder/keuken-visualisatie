@@ -6,6 +6,12 @@ export const config = {
   parentOrigin: process.env.NEXT_PUBLIC_PARENT_ORIGIN ?? '*',
   parentWebsiteUrl: process.env.NEXT_PUBLIC_PARENT_WEBSITE_URL ?? '',
   openAiModel: process.env.OPENAI_IMAGE_MODEL ?? 'gpt-image-1.5',
+  openAiImageQuality: (process.env.OPENAI_IMAGE_QUALITY ?? 'high') as
+    | 'low'
+    | 'medium'
+    | 'high'
+    | 'auto',
+  openAiInputFidelity: (process.env.OPENAI_INPUT_FIDELITY ?? 'high') as 'low' | 'high',
 } as const;
 
 export function isAcceptedImageType(type: string): type is (typeof config.acceptedImageTypes)[number] {

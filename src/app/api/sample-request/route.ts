@@ -3,15 +3,24 @@ import { NextResponse } from 'next/server';
 import type { SampleRequestPayload } from '@/types/visualizer';
 import { estimateSampleRequestCostUsd } from '@/lib/analytics/cost';
 import { getRecentVisualizations, logSampleRequestEvent } from '@/lib/analytics/store';
+import { getClientBySlug } from '@/lib/tenants/clients';
+import { createLead } from '@/lib/tenants/leads';
+import { sendLeadNotificationEmail } from '@/lib/email/sendLeadNotificationEmail';
 
 export const runtime = 'nodejs';
 
-function validatePayload(body: unknown): { valid: true; data: SampleRequestPayload } | { valid: false; error: string } {
+interface SampleRequestBody extends SampleRequestPayload {
+  clientSlug?: string;
+}
+
+function validatePayload(
+  body: unknown,
+): { valid: true; data: SampleRequestBody } | { valid: false; error: string } {
   if (!body || typeof body !== 'object') {
     return { valid: false, error: 'Ongeldige aanvraag' };
   }
 
-  const data = body as SampleRequestPayload;
+  const data = body as SampleRequestBody;
 
   if (!data.consent) {
     return { valid: false, error: 'Toestemming is verplicht' };
@@ -79,6 +88,27 @@ export async function POST(request: Request) {
       ).length,
       estimatedCostUsd,
     });
+
+    const visualizationCount = sampleIds.filter((id) =>
+      recentVisualizations.some((event) => event.materialId === id && event.success),
+    ).length;
+
+    if (data.clientSlug?.trim()) {
+      const client = await getClientBySlug(data.clientSlug.trim().toLowerCase());
+      if (!client) {
+        return NextResponse.json({ error: 'Klant niet gevonden' }, { status: 404 });
+      }
+      await createLead(client.id, requestId, data, visualizationCount);
+
+      try {
+        await sendLeadNotificationEmail(
+          { name: client.name, email: client.email },
+          data,
+        );
+      } catch (emailError) {
+        console.error('Lead notification email failed:', emailError);
+      }
+    }
 
     const webhookUrl = process.env.SAMPLE_WEBHOOK_URL;
     if (webhookUrl) {

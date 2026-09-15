@@ -61,4 +61,6 @@ export interface AdminStats {
     tokens: number;
     estimatedCostUsd: number;
   }[];
+  storageBackend: 'blob' | 'local';
+  updatedAt: string;
 }

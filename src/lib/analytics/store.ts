@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { get, put } from '@vercel/blob';
 import type {
   AnalyticsEvent,
   AnalyticsStoreData,
@@ -10,20 +11,22 @@ import type {
 } from '@/lib/analytics/types';
 
 const MAX_EVENTS = 5000;
+const BLOB_PATHNAME = 'analytics/events.json';
 
-function getStorePath(): string {
+function getLocalStorePath(): string {
   if (process.env.ANALYTICS_STORE_PATH) {
     return process.env.ANALYTICS_STORE_PATH;
-  }
-  if (process.env.VERCEL) {
-    return '/tmp/keuken-visualizer-analytics.json';
   }
   return path.join(process.cwd(), 'data', 'analytics.json');
 }
 
-async function readStore(): Promise<AnalyticsStoreData> {
+function isBlobStorageEnabled(): boolean {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+}
+
+async function readLocalStore(): Promise<AnalyticsStoreData> {
   try {
-    const raw = await readFile(getStorePath(), 'utf8');
+    const raw = await readFile(getLocalStorePath(), 'utf8');
     const parsed = JSON.parse(raw) as AnalyticsStoreData;
     if (!Array.isArray(parsed.events)) {
       return { events: [], updatedAt: new Date().toISOString() };
@@ -34,10 +37,51 @@ async function readStore(): Promise<AnalyticsStoreData> {
   }
 }
 
-async function writeStore(data: AnalyticsStoreData): Promise<void> {
-  const storePath = getStorePath();
+async function writeLocalStore(data: AnalyticsStoreData): Promise<void> {
+  const storePath = getLocalStorePath();
   await mkdir(path.dirname(storePath), { recursive: true });
   await writeFile(storePath, JSON.stringify(data, null, 2), 'utf8');
+}
+
+async function readBlobStore(): Promise<AnalyticsStoreData> {
+  try {
+    const result = await get(BLOB_PATHNAME, { access: 'private', useCache: false });
+    if (!result || result.statusCode === 304 || !result.stream) {
+      return { events: [], updatedAt: new Date().toISOString() };
+    }
+
+    const raw = await new Response(result.stream).text();
+    const parsed = JSON.parse(raw) as AnalyticsStoreData;
+    if (!Array.isArray(parsed.events)) {
+      return { events: [], updatedAt: new Date().toISOString() };
+    }
+    return parsed;
+  } catch {
+    return { events: [], updatedAt: new Date().toISOString() };
+  }
+}
+
+async function writeBlobStore(data: AnalyticsStoreData): Promise<void> {
+  await put(BLOB_PATHNAME, JSON.stringify(data, null, 2), {
+    access: 'private',
+    allowOverwrite: true,
+    contentType: 'application/json',
+  });
+}
+
+async function readStore(): Promise<AnalyticsStoreData> {
+  if (isBlobStorageEnabled()) {
+    return readBlobStore();
+  }
+  return readLocalStore();
+}
+
+async function writeStore(data: AnalyticsStoreData): Promise<void> {
+  if (isBlobStorageEnabled()) {
+    await writeBlobStore(data);
+    return;
+  }
+  await writeLocalStore(data);
 }
 
 export async function appendAnalyticsEvent(event: AnalyticsEvent): Promise<void> {
@@ -141,6 +185,8 @@ export async function getAdminStats(): Promise<AdminStats> {
     recentVisualizations: [...visualizations].reverse().slice(0, 20),
     recentSampleRequests: [...sampleRequests].reverse().slice(0, 20),
     dailyStats,
+    storageBackend: isBlobStorageEnabled() ? 'blob' : 'local',
+    updatedAt: store.updatedAt,
   };
 }
 

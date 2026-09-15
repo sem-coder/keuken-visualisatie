@@ -1,10 +1,11 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { KitchenPhoto } from '@/components/visualizer/KitchenPhoto';
 import { PhotoUpload } from '@/components/visualizer/PhotoUpload';
+import { compressKitchenImage } from '@/lib/client/compressKitchenImage';
 import { sendEmbedEvent } from '@/lib/embed/events';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 
@@ -17,12 +18,22 @@ const tips = [
 
 export function PhotoStep() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [compressing, setCompressing] = useState(false);
   const { originalPreviewUrl, setOriginalImage, setStep } = useKitchenVisualizer();
 
-  const handleSelect = (file: File) => {
-    const previewUrl = URL.createObjectURL(file);
-    setOriginalImage(file, previewUrl);
-    sendEmbedEvent('kitchen_photo_uploaded', { fileSize: file.size, fileType: file.type });
+  const handleSelect = async (file: File) => {
+    setCompressing(true);
+    try {
+      const compressed = await compressKitchenImage(file);
+      const previewUrl = URL.createObjectURL(compressed);
+      setOriginalImage(compressed, previewUrl);
+      sendEmbedEvent('kitchen_photo_uploaded', {
+        fileSize: compressed.size,
+        fileType: compressed.type,
+      });
+    } finally {
+      setCompressing(false);
+    }
   };
 
   return (
@@ -34,7 +45,11 @@ export function PhotoStep() {
         </p>
 
         <div className="mt-4">
-          {!originalPreviewUrl ? (
+          {compressing ? (
+            <div className="flex h-48 items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 text-sm text-slate-500">
+              Foto optimaliseren...
+            </div>
+          ) : !originalPreviewUrl ? (
             <PhotoUpload onSelect={handleSelect} />
           ) : (
             <KitchenPhoto
@@ -65,7 +80,7 @@ export function PhotoStep() {
           <ul className="grid gap-1 sm:grid-cols-2">
             {tips.map((tip) => (
               <li key={tip} className="flex items-start gap-2">
-                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-500" />
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-green-500" />
                 {tip}
               </li>
             ))}

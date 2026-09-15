@@ -20,7 +20,7 @@ export function SampleStickyBar() {
             return (
               <div key={id} className="text-center">
                 <div
-                  className="mx-auto h-10 w-10 rounded-lg border-2 border-amber-500 shadow-sm"
+                  className="mx-auto h-10 w-10 rounded-lg border-2 border-brand-green-500 shadow-sm"
                   style={{ backgroundColor: material.preview }}
                 />
                 <p className="mt-1 text-[10px] text-slate-600 truncate max-w-[72px]">

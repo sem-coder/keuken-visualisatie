@@ -1,5 +1,10 @@
 import OpenAI, { toFile } from 'openai';
 import { buildKitchenVisualizationPrompt } from '@/lib/ai/buildKitchenVisualizationPrompt';
+import {
+  getImageDimensions,
+  normalizeToInputSize,
+  pickOpenAiSize,
+} from '@/lib/ai/matchImageSize';
 import type {
   VisualizationProvider,
   VisualizationRequest,
@@ -30,9 +35,12 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
     const buffer = bufferFromRequest(request);
     const mimeType = mimeFromRequest(request);
     const prompt = buildKitchenVisualizationPrompt(request.material);
-    const storage = getMockStorage();
     const model = config.openAiModel;
-    const quality = 'high';
+    const quality = config.openAiImageQuality;
+    const inputFidelity = config.openAiInputFidelity;
+
+    const { width, height } = await getImageDimensions(buffer);
+    const size = pickOpenAiSize(width, height);
 
     const file = await toFile(buffer, 'kitchen.jpg', { type: mimeType });
 
@@ -40,9 +48,9 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
       model,
       image: file,
       prompt,
-      input_fidelity: 'high',
+      input_fidelity: inputFidelity,
       quality,
-      size: 'auto',
+      size,
       output_format: 'jpeg',
     });
 
@@ -51,18 +59,15 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
       throw new Error('OpenAI returned no image data');
     }
 
-    const resultBuffer = Buffer.from(b64, 'base64');
-    const stored = await storage.upload(resultBuffer, {
-      mimeType: 'image/jpeg',
-      prefix: 'visualizations',
-    });
-
+    const rawBuffer = Buffer.from(b64, 'base64');
+    const normalizedBuffer = await normalizeToInputSize(rawBuffer, width, height);
+    const normalizedBase64 = normalizedBuffer.toString('base64');
     const usage = response.usage;
 
     return {
-      imageUrl: stored.url,
-      storageKey: stored.key,
-      imageBase64: b64,
+      imageUrl: '',
+      storageKey: '',
+      imageBase64: normalizedBase64,
       mimeType: 'image/jpeg',
       mockMode: false,
       model,

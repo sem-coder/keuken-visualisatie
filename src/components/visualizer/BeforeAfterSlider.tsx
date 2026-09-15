@@ -84,7 +84,6 @@ export function BeforeAfterSlider({
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      {/* After image — full background */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={afterSrc}
@@ -93,7 +92,6 @@ export function BeforeAfterSlider({
         draggable={false}
       />
 
-      {/* Before image — clipped */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
@@ -121,7 +119,7 @@ export function BeforeAfterSlider({
         <button
           type="button"
           aria-label="Sleep om te vergelijken"
-          className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-amber-700 shadow-xl cursor-ew-resize"
+          className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full border-2 border-white bg-brand-green-500 shadow-xl"
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}

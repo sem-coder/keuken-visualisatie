@@ -209,6 +209,11 @@ export function AdminDashboard() {
           </div>
         </section>
       </div>
+
+      <p className="text-xs text-slate-400">
+        Opslag: {stats.storageBackend === 'blob' ? 'Vercel Blob' : 'lokaal bestand'}
+        {stats.updatedAt && ` · bijgewerkt ${new Date(stats.updatedAt).toLocaleString('nl-NL')}`}
+      </p>
     </div>
   );
 }

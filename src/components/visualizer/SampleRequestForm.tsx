@@ -18,6 +18,7 @@ export function SampleRequestForm() {
     visualizations,
     kitchenImageStorageKey,
     attribution,
+    clientSlug,
     isSubmitting,
     setIsSubmitting,
     setRequestId,
@@ -93,6 +94,7 @@ export function SampleRequestForm() {
           message: customer.message.trim() || undefined,
           consent: customer.consent,
           attribution,
+          clientSlug: clientSlug ?? undefined,
         }),
       });
 

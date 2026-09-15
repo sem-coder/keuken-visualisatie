@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 
 interface AdminLoginProps {
   onSuccess: () => void;
@@ -50,9 +50,8 @@ export function AdminLogin({ onSuccess }: AdminLoginProps) {
           <label htmlFor="password" className="text-sm font-medium text-slate-700">
             Wachtwoord
           </label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             className="mt-2"

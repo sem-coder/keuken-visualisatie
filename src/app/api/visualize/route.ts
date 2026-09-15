@@ -4,7 +4,6 @@ import { logVisualizationEvent } from '@/lib/analytics/store';
 import { estimateVisualizationCostUsd } from '@/lib/analytics/cost';
 import { getMaterialById, type Material } from '@/lib/materials';
 import { config, isAcceptedImageType } from '@/lib/config';
-import { getMockStorage } from '@/lib/storage/mock-storage';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
@@ -42,12 +41,6 @@ export async function POST(request: Request) {
 
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const storage = getMockStorage();
-
-    const kitchenStored = await storage.upload(buffer, {
-      mimeType: image.type,
-      prefix: 'kitchens',
-    });
 
     const provider = createVisualizationProvider();
     const result = await provider.generate({
@@ -65,7 +58,7 @@ export async function POST(request: Request) {
       materialName: material.name,
       mockMode,
       model: result.model ?? config.openAiModel,
-      quality: result.quality ?? 'high',
+      quality: result.quality ?? config.openAiImageQuality,
       inputTokens: usage.inputTokens,
       outputTokens: usage.outputTokens,
       totalTokens: usage.totalTokens,
@@ -78,7 +71,6 @@ export async function POST(request: Request) {
     return NextResponse.json({
       imageUrl: imageDataUrl,
       storageKey: result.storageKey,
-      kitchenImageKey: kitchenStored.key,
       mockMode,
     });
   } catch (error) {
@@ -90,7 +82,7 @@ export async function POST(request: Request) {
       materialName: material?.name ?? 'Onbekend',
       mockMode: !process.env.OPENAI_API_KEY,
       model: config.openAiModel,
-      quality: 'high',
+      quality: config.openAiImageQuality,
       inputTokens: 0,
       outputTokens: 0,
       totalTokens: 0,

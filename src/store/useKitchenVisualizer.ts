@@ -22,6 +22,9 @@ interface KitchenVisualizerState {
   requestId?: string;
   generationError: string | null;
   isSubmitting: boolean;
+  clientSlug: string | null;
+  clientName: string | null;
+  clientWebsiteUrl: string | null;
 
   setStep: (step: VisualizerStep) => void;
   setOriginalImage: (file: File | null, previewUrl: string | null) => void;
@@ -36,6 +39,11 @@ interface KitchenVisualizerState {
   setRequestId: (id: string) => void;
   setGenerationError: (error: string | null) => void;
   setIsSubmitting: (value: boolean) => void;
+  setClientContext: (context: {
+    slug: string | null;
+    name?: string | null;
+    websiteUrl?: string | null;
+  }) => void;
   resetForNewColor: () => void;
   resetAll: () => void;
 }
@@ -67,6 +75,9 @@ export const useKitchenVisualizer = create<KitchenVisualizerState>((set, get) =>
   attribution: {},
   generationError: null,
   isSubmitting: false,
+  clientSlug: null,
+  clientName: null,
+  clientWebsiteUrl: null,
 
   setStep: (step) => set({ step }),
 
@@ -120,6 +131,13 @@ export const useKitchenVisualizer = create<KitchenVisualizerState>((set, get) =>
   setGenerationError: (error) => set({ generationError: error }),
 
   setIsSubmitting: (value) => set({ isSubmitting: value }),
+
+  setClientContext: ({ slug, name, websiteUrl }) =>
+    set({
+      clientSlug: slug,
+      clientName: name ?? null,
+      clientWebsiteUrl: websiteUrl ?? null,
+    }),
 
   resetForNewColor: () =>
     set({ step: 'colors', activeMaterialId: null, generationError: null }),

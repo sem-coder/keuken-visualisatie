@@ -1,0 +1,34 @@
+Aan: mara@woeler.nl
+Onderwerp: Overzicht interne tools — huidig, in ontwikkeling & gepland
+
+Hoi Mara,
+
+Hierbij het overzicht van onze interne tools: wat live staat, wat in ontwikkeling is, en wat er nog aankomt — met per tool het doel.
+
+LIVE
+• Intake tool — Intakegesprekken en klantinformatie gestructureerd vastleggen, zodat sales en projectstart sneller en consistenter verlopen.
+• Adoptimizer — Advertentiecampagnes analyseren en optimaliseren voor betere performance en efficiënter mediabudget.
+• Meta optimizer — Specifiek gericht op Meta Ads (Facebook/Instagram): campagnes monitoren, bijsturen en optimaliseren.
+• Auto reserveer tool — Automatiseren/reserveren van afspraken of capaciteit, zodat dit minder handmatig hoeft.
+
+IN ONTWIKKELING (NOG NIET LIVE)
+• Online magazine flipbook maker — Digitale magazines/publicaties omzetten naar een interactieve flipbook-ervaring voor online distributie.
+• Keuken render maker — Bezoekers uploaden een keukenfoto, kiezen een kleur/wrap, zien een AI-visualisatie (voor/na) en kunnen max. 2 samples aanvragen. Bedoeld als embed op Webflow-sites; primaire conversie = sample-aanvragen.
+
+GEPLAND
+• Rapportage tool — Centraal rapporteren over campagnes, resultaten en KPI's — minder handmatig werk, meer overzicht voor team en klanten.
+• Content tool — Ondersteuning bij het maken, plannen en beheren van content, zodat contentproductie sneller en consistenter verloopt.
+
+KORT PER CATEGORIE
+• Marketing & ads (live): Adoptimizer, Meta optimizer
+• Sales & klant (live): Intake tool, Auto reserveer tool
+• Visualisatie & conversie (in ontwikkeling): Keuken render maker
+• Content & publicatie (in ontwikkeling / gepland): Flipbook maker, Content tool
+• Inzicht & sturing (gepland): Rapportage tool
+
+Totaal: 4 live · 2 in ontwikkeling · 2 gepland
+
+Laat maar weten als je dit ook als visueel overzicht wilt (slide/Notion), of als je per tool ook status, URL en eigenaar wilt toevoegen.
+
+Groet,
+Sem
