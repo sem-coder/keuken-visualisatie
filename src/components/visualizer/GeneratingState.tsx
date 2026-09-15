@@ -71,23 +71,23 @@ export function GeneratingState({ originalImageUrl }: GeneratingStateProps) {
       <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm font-medium text-slate-900">{statusMessages[statusIndex]}</p>
-          <span className="text-sm tabular-nums text-brand-green-700">{progress}%</span>
+          <span className="text-sm tabular-nums text-brand-blue-700">{progress}%</span>
         </div>
 
         <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-slate-100">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-brand-green-500 to-brand-green-600 transition-[width] duration-300 ease-out"
+            className="h-full rounded-full bg-gradient-to-r from-brand-blue-500 to-brand-blue-600 transition-[width] duration-300 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="mt-5 rounded-xl bg-brand-green-50 px-4 py-3 border border-brand-green-100">
-          <p className="text-xs font-semibold uppercase tracking-wide text-brand-green-800">
+        <div className="mt-5 rounded-xl bg-brand-blue-50 px-4 py-3 border border-brand-blue-100">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue-800">
             Wist je dat?
           </p>
           <p
             key={factIndex}
-            className="mt-1.5 text-sm text-brand-green-950/80 animate-in fade-in duration-500"
+            className="mt-1.5 text-sm text-brand-blue-950/80 animate-in fade-in duration-500"
           >
             {funFacts[factIndex]}
           </p>

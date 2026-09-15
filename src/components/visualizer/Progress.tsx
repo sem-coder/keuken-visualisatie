@@ -50,7 +50,7 @@ export function Progress() {
           return (
             <div key={item.key} className="flex items-center gap-2">
               {index > 0 && (
-                <span className={cn('text-slate-300', isActive && 'text-brand-green-300')}>→</span>
+                <span className={cn('text-slate-300', isActive && 'text-brand-blue-300')}>→</span>
               )}
               {isClickable ? (
                 <button
@@ -58,7 +58,7 @@ export function Progress() {
                   onClick={() => handleStepClick(item.key, index)}
                   className={cn(
                     'transition-colors underline-offset-2 hover:underline',
-                    isCurrent ? 'font-semibold text-brand-green-800' : 'text-slate-700 hover:text-brand-green-800',
+                    isCurrent ? 'font-semibold text-brand-blue-800' : 'text-slate-700 hover:text-brand-blue-800',
                   )}
                 >
                   {item.label}
@@ -67,7 +67,7 @@ export function Progress() {
                 <span
                   className={cn(
                     'transition-colors',
-                    isCurrent ? 'font-semibold text-brand-green-800' : isActive ? 'text-slate-700' : 'text-slate-400',
+                    isCurrent ? 'font-semibold text-brand-blue-800' : isActive ? 'text-slate-700' : 'text-slate-400',
                   )}
                 >
                   {item.label}
@@ -92,7 +92,7 @@ export function Progress() {
                   setStep(prev.key);
                 }
               }}
-              className="text-sm font-medium text-brand-green-700 underline"
+              className="text-sm font-medium text-brand-blue-700 underline"
             >
               Vorige stap
             </button>
@@ -100,7 +100,7 @@ export function Progress() {
         </div>
         <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
           <div
-            className="h-full rounded-full bg-brand-green-500 transition-all duration-300"
+            className="h-full rounded-full bg-brand-blue-500 transition-all duration-300"
             style={{ width: `${((current + 1) / 5) * 100}%` }}
           />
         </div>

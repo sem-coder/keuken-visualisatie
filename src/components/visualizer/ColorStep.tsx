@@ -109,7 +109,7 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
           )}
 
           {selectedSampleIds.length === 1 && (
-            <p className="text-sm text-brand-green-800">
+            <p className="text-sm text-brand-blue-800">
               Vink nog 1 kleur aan om je tweede{config.showFreeSamples ? ' gratis' : ''} sample te
               kiezen.
             </p>

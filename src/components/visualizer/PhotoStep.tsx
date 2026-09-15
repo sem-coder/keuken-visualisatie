@@ -80,7 +80,7 @@ export function PhotoStep() {
           <ul className="grid gap-1 sm:grid-cols-2">
             {tips.map((tip) => (
               <li key={tip} className="flex items-start gap-2">
-                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-green-500" />
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-blue-500" />
                 {tip}
               </li>
             ))}

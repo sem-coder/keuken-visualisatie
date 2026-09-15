@@ -63,7 +63,7 @@ export function MaterialGrid({
   return (
     <div>
       {selectedSampleIds.length > 0 && (
-        <div className="mb-4 rounded-xl border border-brand-green-200 bg-brand-green-50 px-4 py-3 text-sm text-brand-green-900">
+        <div className="mb-4 rounded-xl border border-brand-blue-200 bg-brand-blue-50 px-4 py-3 text-sm text-brand-blue-900">
           <strong>
             {selectedSampleIds.length} van {config.maxSamples} samples gekozen
           </strong>

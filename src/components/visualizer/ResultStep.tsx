@@ -78,7 +78,7 @@ export function ResultStep() {
               style={{ backgroundColor: material.preview }}
             />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-brand-green-700">
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-blue-700">
                 Je bekijkt
               </p>
               <p className="font-semibold text-slate-900">{material.name}</p>
@@ -93,7 +93,7 @@ export function ResultStep() {
               variant={isSelected ? 'secondary' : 'primary'}
               onClick={handleSelectSample}
               disabled={atMax}
-              className={cn(isSelected && 'border-brand-green-400 bg-brand-green-50 text-brand-green-900')}
+              className={cn(isSelected && 'border-brand-blue-400 bg-brand-blue-50 text-brand-blue-900')}
             >
               {isSelected ? (
                 <>
@@ -119,7 +119,7 @@ export function ResultStep() {
         {sampleError && <p className="mt-3 text-sm text-red-600">{sampleError}</p>}
 
         {selectedSampleIds.length > 0 && (
-          <p className="mt-4 rounded-lg bg-brand-green-50 px-4 py-3 text-sm text-brand-green-900">
+          <p className="mt-4 rounded-lg bg-brand-blue-50 px-4 py-3 text-sm text-brand-blue-900">
             <strong>
               {selectedSampleIds.length} van {config.maxSamples} samples gekozen
             </strong>

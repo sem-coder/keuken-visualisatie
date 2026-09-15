@@ -41,8 +41,8 @@ export function SampleSelection({ onGenerateSelected }: SampleSelectionProps) {
         </p>
 
         {!allVisualized && (
-          <div className="mt-4 rounded-xl border border-brand-green-200 bg-brand-green-50 p-4">
-            <p className="text-sm text-brand-green-900">
+          <div className="mt-4 rounded-xl border border-brand-blue-200 bg-brand-blue-50 p-4">
+            <p className="text-sm text-brand-blue-900">
               Visualisaties zijn nog niet gemaakt. Klik hieronder om je keuken in de
               geselecteerde kleuren te bekijken.
             </p>

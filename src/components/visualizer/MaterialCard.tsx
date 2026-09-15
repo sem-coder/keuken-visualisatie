@@ -29,8 +29,8 @@ export function MaterialCard({
     <div
       className={cn(
         'group relative flex flex-col overflow-hidden rounded-xl border bg-white text-left transition-all shadow-sm',
-        selected ? 'border-brand-green-500 ring-2 ring-brand-green-200' : 'border-slate-200 hover:border-brand-green-300',
-        isSampleSelected && 'ring-2 ring-brand-green-400 border-brand-green-500',
+        selected ? 'border-brand-blue-500 ring-2 ring-brand-blue-200' : 'border-slate-200 hover:border-brand-blue-300',
+        isSampleSelected && 'ring-2 ring-brand-blue-400 border-brand-blue-500',
       )}
     >
       <button
@@ -48,17 +48,17 @@ export function MaterialCard({
         className={cn(
           'absolute left-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 transition-all shadow-sm',
           isSampleSelected
-            ? 'border-brand-green-600 bg-brand-green-600 text-white'
+            ? 'border-brand-blue-600 bg-brand-blue-600 text-white'
             : sampleDisabled
               ? 'border-slate-200 bg-white/80 text-slate-300 cursor-not-allowed'
-              : 'border-white bg-white/95 text-slate-400 hover:border-brand-green-400 hover:text-brand-green-700',
+              : 'border-white bg-white/95 text-slate-400 hover:border-brand-blue-400 hover:text-brand-blue-700',
         )}
       >
         {isSampleSelected && <Check className="h-4 w-4" strokeWidth={3} />}
       </button>
 
       {isSampleSelected && (
-        <span className="absolute right-2 top-2 z-10 rounded-full bg-brand-green-600 px-2 py-0.5 text-[10px] font-semibold text-white">
+        <span className="absolute right-2 top-2 z-10 rounded-full bg-brand-blue-600 px-2 py-0.5 text-[10px] font-semibold text-white">
           Sample
         </span>
       )}

@@ -206,7 +206,7 @@ export function KitchenVisualizer() {
           Keuken visualisatie
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl">
-          <span className="inline bg-brand-green-500 px-2 py-0.5 text-white">
+          <span className="inline bg-brand-blue-500 px-2 py-0.5 text-white">
             Bekijk jouw favoriete kleur
           </span>{' '}
           op je eigen keuken
@@ -217,15 +217,15 @@ export function KitchenVisualizer() {
         </p>
         <ul className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600">
           <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-green-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
             Gebruik je eigen keukenfoto
           </li>
           <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-green-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
             Vergelijk voor en na
           </li>
           <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-green-500" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
             Kies maximaal 2{config.showFreeSamples ? ' gratis' : ''} samples
           </li>
         </ul>

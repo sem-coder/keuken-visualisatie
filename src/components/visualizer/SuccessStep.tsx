@@ -13,8 +13,8 @@ export function SuccessStep() {
   return (
     <section className="animate-in fade-in duration-300">
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-green-100">
-          <CheckCircle2 className="h-8 w-8 text-brand-green-600" />
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-blue-100">
+          <CheckCircle2 className="h-8 w-8 text-brand-blue-600" />
         </div>
 
         <h2 className="text-2xl font-bold text-slate-900">Je samples zijn aangevraagd</h2>
