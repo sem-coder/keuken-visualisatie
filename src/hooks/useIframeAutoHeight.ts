@@ -3,14 +3,17 @@
 import { useEffect } from 'react';
 import { sendHeightToParent } from '@/lib/embed/events';
 
-function measureDocumentHeight(): number {
+function measureEmbedHeight(): number {
+  const root = document.querySelector('[data-kv-embed-root]');
+  if (root instanceof HTMLElement) {
+    return root.scrollHeight;
+  }
+
   const doc = document.documentElement;
   const body = document.body;
-  return Math.max(
-    doc.scrollHeight,
-    doc.offsetHeight,
-    body.scrollHeight,
-    body.offsetHeight,
+  return Math.min(
+    Math.max(doc.scrollHeight, body.scrollHeight),
+    Math.max(doc.offsetHeight, body.offsetHeight),
   );
 }
 
@@ -21,7 +24,7 @@ export function useIframeAutoHeight(resizeKey: string): void {
     let frame = 0;
 
     const notify = () => {
-      sendHeightToParent(measureDocumentHeight() + 8);
+      sendHeightToParent(measureEmbedHeight() + 4);
     };
 
     const scheduleNotify = () => {
@@ -29,13 +32,16 @@ export function useIframeAutoHeight(resizeKey: string): void {
       frame = requestAnimationFrame(notify);
     };
 
-    notify();
+    scheduleNotify();
 
+    const root = document.querySelector('[data-kv-embed-root]');
     const observer = new ResizeObserver(scheduleNotify);
 
-    observer.observe(document.documentElement);
-    if (document.body) {
-      observer.observe(document.body);
+    if (root instanceof HTMLElement) {
+      observer.observe(root);
+    } else {
+      observer.observe(document.documentElement);
+      if (document.body) observer.observe(document.body);
     }
 
     window.addEventListener('resize', scheduleNotify);

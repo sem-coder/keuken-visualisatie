@@ -16,12 +16,18 @@ body {
 }
 
 html.kv-embed,
-html.kv-embed body {
-  min-height: 0;
-  height: auto;
+html.kv-embed body,
+html:has([data-kv-embed-root]),
+html:has([data-kv-embed-root]) body {
+  min-height: 0 !important;
+  height: auto !important;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   background-color: #ffffff;
+}
+
+html:has([data-kv-embed-root]) [data-kv-embed-root] {
+  min-height: 0;
 }
 
 html.kv-embed body {

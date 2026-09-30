@@ -3,7 +3,10 @@
 
   function setHeight(iframe, height) {
     if (typeof height !== 'number' || !Number.isFinite(height)) return;
-    iframe.style.height = Math.max(520, Math.ceil(height)) + 'px';
+    var next = Math.ceil(height);
+    if (next < 200 || next > 8000) return;
+    iframe.style.height = next + 'px';
+    iframe.style.minHeight = '0';
   }
 
   function wire(iframe) {
