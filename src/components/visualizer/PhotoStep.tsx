@@ -38,7 +38,7 @@ export function PhotoStep() {
 
   return (
     <section className="animate-in fade-in duration-300">
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <h2 className="text-sm font-semibold text-slate-900">1. Upload een foto van je keuken</h2>
         <p className="mt-2 text-sm text-slate-600">
           Gebruik bij voorkeur een duidelijke foto waarop de keukenfronten goed zichtbaar zijn.

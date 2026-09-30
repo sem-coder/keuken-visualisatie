@@ -56,7 +56,7 @@ export function PhotoUpload({ onSelect }: PhotoUploadProps) {
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
         className={cn(
-          'cursor-pointer rounded-2xl border-2 border-dashed bg-white p-8 sm:p-12 text-center transition-all',
+          'cursor-pointer rounded-2xl border-2 border-dashed bg-white p-5 text-center transition-all sm:p-12',
           isDragging ? 'border-brand-blue-400 bg-brand-blue-50/50' : 'border-slate-200 hover:border-brand-blue-400 hover:bg-brand-blue-50/30',
         )}
       >

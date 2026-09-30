@@ -8,7 +8,9 @@ import { StepBackButton } from '@/components/visualizer/StepBackButton';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
 import { sendEmbedEvent } from '@/lib/embed/events';
+import { useEmbedMode } from '@/hooks/useEmbedMode';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
+import { cn } from '@/lib/utils';
 
 interface ColorStepProps {
   onGenerate: (materialId: string) => void;
@@ -16,6 +18,7 @@ interface ColorStepProps {
 }
 
 export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
+  const embedded = useEmbedMode();
   const {
     activeMaterialId,
     viewedMaterialIds,
@@ -76,7 +79,14 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
           />
         </div>
 
-        <div className="sticky bottom-0 mt-6 -mx-5 space-y-3 border-t border-slate-100 bg-white/95 px-5 py-4 backdrop-blur sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0">
+        <div
+          className={cn(
+            'sticky bottom-0 mt-6 space-y-3 border-t border-slate-100 bg-white/95 py-4 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:py-0',
+            embedded
+              ? 'mx-0 px-0 sm:px-0'
+              : '-mx-5 px-5 sm:mx-0 sm:px-0',
+          )}
+        >
           {twoSamplesSelected && (
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button

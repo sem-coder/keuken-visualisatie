@@ -26,8 +26,26 @@ html:has([data-kv-embed-root]) body {
   background-color: #ffffff;
 }
 
-html:has([data-kv-embed-root]) [data-kv-embed-root] {
+html:has([data-kv-embed-root]) [data-kv-embed-root],
+.kv-embed-root {
   min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+html:has([data-kv-embed-root]) *,
+html.kv-embed * {
+  box-sizing: border-box;
+}
+
+html:has([data-kv-embed-root]) img,
+html:has([data-kv-embed-root]) video,
+html.kv-embed img,
+html.kv-embed video {
+  max-width: 100%;
+  height: auto;
 }
 
 html.kv-embed body {

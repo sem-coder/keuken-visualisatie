@@ -214,7 +214,7 @@ export function KitchenVisualizer({
       <div
         className={
           compactEmbed
-            ? 'mx-auto w-full max-w-none px-3 py-4 sm:px-4'
+            ? 'mx-auto w-full min-w-0 max-w-full overflow-x-hidden px-2 py-3 sm:px-4 sm:py-4'
             : 'mx-auto max-w-6xl px-4 py-8 lg:py-12'
         }
       >
@@ -225,11 +225,17 @@ export function KitchenVisualizer({
         <h1
           className={
             compactEmbed
-              ? 'mt-2 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl'
+              ? 'mt-2 text-lg font-bold leading-snug tracking-tight text-slate-900 break-words sm:text-2xl'
               : 'mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl'
           }
         >
-          <span className="inline bg-brand-blue-500 px-2 py-0.5 text-white">
+          <span
+            className={
+              compactEmbed
+                ? 'mb-1 inline-block max-w-full bg-brand-blue-500 px-2 py-0.5 text-white'
+                : 'inline bg-brand-blue-500 px-2 py-0.5 text-white'
+            }
+          >
             Bekijk jouw favoriete kleur
           </span>{' '}
           op je eigen keuken

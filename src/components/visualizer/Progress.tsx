@@ -3,6 +3,7 @@
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import type { VisualizerStep } from '@/types/visualizer';
 import { canNavigateToStep, stepToProgressIndex } from '@/lib/stepNavigation';
+import { useEmbedMode } from '@/hooks/useEmbedMode';
 import { cn } from '@/lib/utils';
 
 const progressSteps: { key: VisualizerStep; label: string }[] = [
@@ -14,6 +15,7 @@ const progressSteps: { key: VisualizerStep; label: string }[] = [
 ];
 
 export function Progress() {
+  const embedded = useEmbedMode();
   const {
     step,
     setStep,
@@ -39,7 +41,12 @@ export function Progress() {
   };
 
   return (
-    <div className="mb-8 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+    <div
+      className={cn(
+        'rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm sm:px-4',
+        embedded ? 'mb-4' : 'mb-8',
+      )}
+    >
       <div className="hidden sm:flex items-center justify-center gap-2 text-sm text-slate-500">
         {progressSteps.map((item, index) => {
           const isActive = index <= current;

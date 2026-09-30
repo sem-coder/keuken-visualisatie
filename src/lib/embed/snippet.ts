@@ -24,7 +24,8 @@ export function getEmbedSnippet(slug: string, baseUrl: string): string {
   const root = normalizeBaseUrl(baseUrl);
   const embedUrl = getEmbedUrl(slug, baseUrl);
 
-  return `<iframe
+  return `<div class="kitchen-visualizer-embed" style="width:100%;max-width:100%;min-width:0;grid-column:1/-1;-webkit-grid-column:1/-1;">
+<iframe
   id="${IFRAME_ID}"
   data-kitchen-visualizer="1"
   src="${embedUrl}"
@@ -33,7 +34,8 @@ export function getEmbedSnippet(slug: string, baseUrl: string): string {
   frameborder="0"
   scrolling="yes"
   allow="camera *; clipboard-read *; clipboard-write *"
-  style="width:100%;border:0;display:block;min-height:480px;height:480px;"
+  style="width:100%;max-width:100%;min-width:0;border:0;display:block;min-height:480px;height:480px;"
 ></iframe>
+</div>
 <script src="${root}/embed.js" defer></script>`;
 }
