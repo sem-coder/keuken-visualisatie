@@ -382,9 +382,10 @@ export function AdminClients() {
                           Embed code
                         </p>
                         <p className="mt-1 text-xs text-slate-500">
-                          Plak de volledige code (iframe + script) in Webflow. Vervang oude embeds
-                          die alleen een iframe hadden — anders past de hoogte niet en kun je niet
-                          scrollen.
+                          Webflow: gebruik een <strong>Embed</strong>-element met alleen de embed-URL
+                          ({client.embedUrl}), of plak iframe + script. Voeg{' '}
+                          <code className="text-[11px]">/embed.js</code> één keer toe in Site
+                          settings → Custom code (footer) als de hoogte niet meegroeit.
                         </p>
                         <pre className="mt-2 overflow-x-auto rounded-lg bg-slate-50 p-3 text-xs text-slate-700">
                           {client.embedSnippet}

@@ -2,24 +2,30 @@
 
 import { useEffect, useState } from 'react';
 
-export function useEmbedMode(): boolean {
-  const [embedded, setEmbedded] = useState(false);
+function detectEmbedMode(initialCompact: boolean): boolean {
+  if (typeof window === 'undefined') return initialCompact;
+  if (initialCompact) return true;
+  if (window.self !== window.top) return true;
+  return new URLSearchParams(window.location.search).get('embed') === '1';
+}
+
+export function useEmbedMode(initialCompact = false): boolean {
+  const [embedded, setEmbedded] = useState(() => detectEmbedMode(initialCompact));
 
   useEffect(() => {
-    const inIframe = window.self !== window.top;
-    const embedQuery =
-      new URLSearchParams(window.location.search).get('embed') === '1';
-    const isEmbed = inIframe || embedQuery;
+    const isEmbed = detectEmbedMode(initialCompact);
     setEmbedded(isEmbed);
 
     if (isEmbed) {
       document.documentElement.classList.add('kv-embed');
+    } else {
+      document.documentElement.classList.remove('kv-embed');
     }
 
     return () => {
       document.documentElement.classList.remove('kv-embed');
     };
-  }, []);
+  }, [initialCompact]);
 
   return embedded;
 }

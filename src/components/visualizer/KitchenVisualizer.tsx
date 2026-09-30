@@ -20,7 +20,15 @@ import { createMockVisualization } from '@/lib/client/createMockVisualization';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import { useCallback, useEffect, useState } from 'react';
 
-export function KitchenVisualizer() {
+interface KitchenVisualizerProps {
+  clientSlug?: string;
+  initialCompact?: boolean;
+}
+
+export function KitchenVisualizer({
+  clientSlug: clientSlugProp,
+  initialCompact = false,
+}: KitchenVisualizerProps = {}) {
   const {
     step,
     originalImage,
@@ -37,7 +45,7 @@ export function KitchenVisualizer() {
   } = useKitchenVisualizer();
 
   const [generationFailed, setGenerationFailed] = useState(false);
-  const compactEmbed = useEmbedMode();
+  const compactEmbed = useEmbedMode(initialCompact);
 
   useIframeAutoHeight(
     `${step}-${selectedSampleIds.length}-${Boolean(generationError)}-${Boolean(generationFailed)}-${Boolean(originalPreviewUrl)}`,
@@ -48,7 +56,8 @@ export function KitchenVisualizer() {
     setAttribution(parseAttributionFromSearch(window.location.search));
 
     const params = new URLSearchParams(window.location.search);
-    const clientSlug = params.get('client')?.trim().toLowerCase();
+    const clientSlug =
+      clientSlugProp?.trim().toLowerCase() || params.get('client')?.trim().toLowerCase();
     if (clientSlug) {
       void fetch(`/api/clients/${encodeURIComponent(clientSlug)}`)
         .then((response) => (response.ok ? response.json() : null))
@@ -74,7 +83,7 @@ export function KitchenVisualizer() {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [setAttribution, setClientContext]);
+  }, [clientSlugProp, setAttribution, setClientContext]);
 
   const generateMaterialVisualization = useCallback(
     async (

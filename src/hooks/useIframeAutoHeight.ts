@@ -18,22 +18,27 @@ export function useIframeAutoHeight(resizeKey: string): void {
   useEffect(() => {
     if (window.self === window.top) return;
 
+    let frame = 0;
+
     const notify = () => {
       sendHeightToParent(measureDocumentHeight() + 8);
     };
 
+    const scheduleNotify = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(notify);
+    };
+
     notify();
 
-    const observer = new ResizeObserver(() => {
-      notify();
-    });
+    const observer = new ResizeObserver(scheduleNotify);
 
     observer.observe(document.documentElement);
     if (document.body) {
       observer.observe(document.body);
     }
 
-    window.addEventListener('resize', notify);
+    window.addEventListener('resize', scheduleNotify);
 
     const onMessage = (event: MessageEvent) => {
       if (
@@ -41,20 +46,16 @@ export function useIframeAutoHeight(resizeKey: string): void {
         typeof event.data === 'object' &&
         (event.data as { type?: string }).type === 'kitchen-visualizer-resize'
       ) {
-        notify();
+        scheduleNotify();
       }
     };
     window.addEventListener('message', onMessage);
 
-    const interval = window.setInterval(notify, 500);
-    const stopBurst = window.setTimeout(() => window.clearInterval(interval), 8000);
-
     return () => {
+      if (frame) cancelAnimationFrame(frame);
       observer.disconnect();
-      window.removeEventListener('resize', notify);
+      window.removeEventListener('resize', scheduleNotify);
       window.removeEventListener('message', onMessage);
-      window.clearInterval(interval);
-      window.clearTimeout(stopBurst);
     };
   }, [resizeKey]);
 }
