@@ -208,21 +208,4 @@ export function getPublicClient(client: TenantClient): TenantClientPublic {
   return toPublicClient(client);
 }
 
-export function getEmbedUrl(slug: string, baseUrl: string): string {
-  const url = new URL(baseUrl);
-  url.searchParams.set('client', slug);
-  return url.toString();
-}
-
-export function getEmbedSnippet(slug: string, baseUrl: string): string {
-  const embedUrl = getEmbedUrl(slug, baseUrl);
-  return `<iframe
-  id="kitchen-visualizer"
-  src="${embedUrl}"
-  width="100%"
-  frameborder="0"
-  scrolling="no"
-  title="Bekijk een nieuwe kleur op jouw keuken"
-  style="border:0;width:100%;display:block;min-height:600px;"
-></iframe>`;
-}
+export { getEmbedSnippet, getEmbedUrl } from '@/lib/embed/snippet';

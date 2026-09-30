@@ -35,14 +35,19 @@ export function sendEmbedEvent(
 
 export function sendHeightToParent(height: number): void {
   if (typeof window === 'undefined') return;
+  if (window.self === window.top) return;
 
-  window.parent.postMessage(
-    {
-      type: 'kitchen-visualizer-height',
-      height,
-    },
-    getParentOrigin(),
-  );
+  const payload = {
+    type: 'kitchen-visualizer-height' as const,
+    height,
+  };
+
+  // Hoogte altijd naar parent sturen; origin kan www/non-www verschillen.
+  window.parent.postMessage(payload, '*');
+  const configured = getParentOrigin();
+  if (configured && configured !== '*') {
+    window.parent.postMessage(payload, configured);
+  }
 }
 
 function getParentOrigin(): string {

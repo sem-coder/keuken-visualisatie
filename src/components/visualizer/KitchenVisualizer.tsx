@@ -10,6 +10,7 @@ import { ResultStep } from '@/components/visualizer/ResultStep';
 import { SampleSelection } from '@/components/visualizer/SampleSelection';
 import { SampleStickyBar } from '@/components/visualizer/SampleStickyBar';
 import { SuccessStep } from '@/components/visualizer/SuccessStep';
+import { useEmbedMode } from '@/hooks/useEmbedMode';
 import { useIframeAutoHeight } from '@/hooks/useIframeAutoHeight';
 import { mergeAttribution, parseAttributionFromSearch } from '@/lib/embed/attribution';
 import { isParentMessage, sendEmbedEvent } from '@/lib/embed/events';
@@ -36,6 +37,7 @@ export function KitchenVisualizer() {
   } = useKitchenVisualizer();
 
   const [generationFailed, setGenerationFailed] = useState(false);
+  const compactEmbed = useEmbedMode();
 
   useIframeAutoHeight(
     `${step}-${selectedSampleIds.length}-${Boolean(generationError)}-${Boolean(generationFailed)}-${Boolean(originalPreviewUrl)}`,
@@ -199,37 +201,45 @@ export function KitchenVisualizer() {
 
   return (
     <>
-      <div className="h-1 w-full bg-brand-blue" aria-hidden />
-      <div className="mx-auto max-w-6xl px-4 py-8 lg:py-12">
-      <header className="mb-10">
-        <p className="text-sm font-semibold uppercase tracking-wider text-brand-blue">
-          Keuken visualisatie
-        </p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl">
-          <span className="inline bg-brand-blue-500 px-2 py-0.5 text-white">
-            Bekijk jouw favoriete kleur
-          </span>{' '}
-          op je eigen keuken
-        </h1>
-        <p className="mt-3 max-w-2xl text-slate-600">
-          Upload een foto van je keuken, probeer verschillende kleuren uit en bestel jouw
-          favoriete samples.
-        </p>
-        <ul className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600">
-          <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
-            Gebruik je eigen keukenfoto
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
-            Vergelijk voor en na
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
-            Kies maximaal 2{config.showFreeSamples ? ' gratis' : ''} samples
-          </li>
-        </ul>
-      </header>
+      {!compactEmbed && <div className="h-1 w-full bg-brand-blue" aria-hidden />}
+      <div
+        className={
+          compactEmbed
+            ? 'mx-auto w-full max-w-none px-3 py-4 sm:px-4'
+            : 'mx-auto max-w-6xl px-4 py-8 lg:py-12'
+        }
+      >
+      {!compactEmbed && (
+        <header className="mb-10">
+          <p className="text-sm font-semibold uppercase tracking-wider text-brand-blue">
+            Keuken visualisatie
+          </p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl">
+            <span className="inline bg-brand-blue-500 px-2 py-0.5 text-white">
+              Bekijk jouw favoriete kleur
+            </span>{' '}
+            op je eigen keuken
+          </h1>
+          <p className="mt-3 max-w-2xl text-slate-600">
+            Upload een foto van je keuken, probeer verschillende kleuren uit en bestel jouw
+            favoriete samples.
+          </p>
+          <ul className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600">
+            <li className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
+              Gebruik je eigen keukenfoto
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
+              Vergelijk voor en na
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
+              Kies maximaal 2{config.showFreeSamples ? ' gratis' : ''} samples
+            </li>
+          </ul>
+        </header>
+      )}
 
       <Progress />
 

@@ -381,7 +381,12 @@ export function AdminClients() {
                         <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
                           Embed code
                         </p>
-                        <pre className="mt-1 overflow-x-auto rounded-lg bg-slate-50 p-3 text-xs text-slate-700">
+                        <p className="mt-1 text-xs text-slate-500">
+                          Plak de volledige code (iframe + script) in Webflow. Vervang oude embeds
+                          die alleen een iframe hadden — anders past de hoogte niet en kun je niet
+                          scrollen.
+                        </p>
+                        <pre className="mt-2 overflow-x-auto rounded-lg bg-slate-50 p-3 text-xs text-slate-700">
                           {client.embedSnippet}
                         </pre>
                       </div>
