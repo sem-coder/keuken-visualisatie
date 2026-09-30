@@ -218,37 +218,47 @@ export function KitchenVisualizer({
             : 'mx-auto max-w-6xl px-4 py-8 lg:py-12'
         }
       >
-      {!compactEmbed && (
-        <header className="mb-10">
-          <p className="text-sm font-semibold uppercase tracking-wider text-brand-blue">
-            Keuken visualisatie
-          </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl">
-            <span className="inline bg-brand-blue-500 px-2 py-0.5 text-white">
-              Bekijk jouw favoriete kleur
-            </span>{' '}
-            op je eigen keuken
-          </h1>
-          <p className="mt-3 max-w-2xl text-slate-600">
-            Upload een foto van je keuken, probeer verschillende kleuren uit en bestel jouw
-            favoriete samples.
-          </p>
-          <ul className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600">
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
-              Gebruik je eigen keukenfoto
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
-              Vergelijk voor en na
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
-              Kies maximaal 2{config.showFreeSamples ? ' gratis' : ''} samples
-            </li>
-          </ul>
-        </header>
-      )}
+      <header className={compactEmbed ? 'mb-6' : 'mb-10'}>
+        <p className="text-sm font-semibold uppercase tracking-wider text-brand-blue">
+          Keuken visualisatie
+        </p>
+        <h1
+          className={
+            compactEmbed
+              ? 'mt-2 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl'
+              : 'mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl'
+          }
+        >
+          <span className="inline bg-brand-blue-500 px-2 py-0.5 text-white">
+            Bekijk jouw favoriete kleur
+          </span>{' '}
+          op je eigen keuken
+        </h1>
+        <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:mt-3 sm:text-base">
+          Upload een foto van je keuken, probeer verschillende kleuren uit en bestel jouw
+          favoriete samples.
+        </p>
+        <ul
+          className={
+            compactEmbed
+              ? 'mt-3 flex flex-col gap-2 text-xs text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:text-sm'
+              : 'mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600'
+          }
+        >
+          <li className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
+            Gebruik je eigen keukenfoto
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
+            Vergelijk voor en na
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-blue-500" />
+            Kies maximaal 2{config.showFreeSamples ? ' gratis' : ''} samples
+          </li>
+        </ul>
+      </header>
 
       <Progress />
 
