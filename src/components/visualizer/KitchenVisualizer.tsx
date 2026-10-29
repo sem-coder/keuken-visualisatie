@@ -272,7 +272,8 @@ export function KitchenVisualizer({
         <div className="mb-8 rounded-2xl border border-red-200 bg-red-50 p-6">
           <h3 className="font-medium text-red-900">De visualisatie kon niet worden gemaakt</h3>
           <p className="mt-2 text-sm text-red-700">
-            Je foto en gekozen kleur zijn bewaard. Probeer het nog een keer.
+            {generationError ??
+              'Je foto en gekozen kleur zijn bewaard. Probeer het nog een keer.'}
           </p>
           <Button type="button" className="mt-4" onClick={retryGeneration}>
             Opnieuw proberen

@@ -3,6 +3,7 @@ import { createVisualizationProvider } from '@/lib/ai/openai-provider';
 import { logVisualizationEvent } from '@/lib/analytics/store';
 import { estimateVisualizationCostUsd } from '@/lib/analytics/cost';
 import { getMaterialById, type Material } from '@/lib/materials';
+import { getPublicVisualizationError } from '@/lib/ai/publicVisualizationError';
 import { config, isAcceptedImageType } from '@/lib/config';
 
 export const runtime = 'nodejs';
@@ -91,14 +92,7 @@ export async function POST(request: Request) {
       errorMessage: error instanceof Error ? error.message : 'Onbekende fout',
     });
 
-    return NextResponse.json(
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : 'De visualisatie kon niet worden gemaakt',
-      },
-      { status: 500 },
-    );
+    const { message, status } = getPublicVisualizationError(error);
+    return NextResponse.json({ error: message }, { status });
   }
 }
