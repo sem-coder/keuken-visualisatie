@@ -32,7 +32,18 @@ export function estimateVisualizationCostUsd(
     );
   }
 
-  return parseEnvNumber(process.env.OPENAI_IMAGE_FALLBACK_COST_USD) ?? 0.12;
+  const quality = process.env.OPENAI_IMAGE_QUALITY ?? 'medium';
+  const fallbackByQuality: Record<string, number> = {
+    low: 0.013,
+    medium: 0.05,
+    high: 0.2,
+    auto: 0.2,
+  };
+  return (
+    parseEnvNumber(process.env.OPENAI_IMAGE_FALLBACK_COST_USD) ??
+    fallbackByQuality[quality] ??
+    0.05
+  );
 }
 
 export function estimateSampleRequestCostUsd(

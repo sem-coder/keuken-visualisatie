@@ -6,7 +6,7 @@ export const config = {
   parentOrigin: process.env.NEXT_PUBLIC_PARENT_ORIGIN ?? '*',
   parentWebsiteUrl: process.env.NEXT_PUBLIC_PARENT_WEBSITE_URL ?? '',
   openAiModel: process.env.OPENAI_IMAGE_MODEL ?? 'gpt-image-1.5',
-  openAiImageQuality: (process.env.OPENAI_IMAGE_QUALITY ?? 'high') as
+  openAiImageQuality: (process.env.OPENAI_IMAGE_QUALITY ?? 'medium') as
     | 'low'
     | 'medium'
     | 'high'
