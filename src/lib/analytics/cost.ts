@@ -1,8 +1,8 @@
 import type { VisualizationAnalyticsEvent } from '@/lib/analytics/types';
 
-/** Default USD pricing estimates for gpt-image-1.5 high quality (override via env). */
-const DEFAULT_INPUT_COST_PER_1M = 0.005;
-const DEFAULT_OUTPUT_COST_PER_1M = 0.04;
+/** Default USD token rates for gpt-image-1.5 (override via env). See .env.example. */
+const DEFAULT_INPUT_COST_PER_1M = 5;
+const DEFAULT_OUTPUT_COST_PER_1M = 40;
 const DEFAULT_FLAT_MOCK_COST = 0;
 
 export interface TokenUsage {

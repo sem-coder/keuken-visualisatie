@@ -104,7 +104,7 @@ export function AdminDashboard() {
         <StatCard
           label="Geschatte totale kosten"
           value={formatUsd(summary.totalEstimatedCostUsd)}
-          hint={`≈ ${formatEur(summary.totalEstimatedCostUsd)}`}
+          hint={`≈ ${formatEur(summary.totalEstimatedCostUsd)} · indicatie o.b.v. OpenAI token usage`}
         />
       </div>
 
@@ -112,7 +112,7 @@ export function AdminDashboard() {
         <StatCard
           label="Gem. kosten per visualisatie"
           value={formatUsd(summary.avgCostPerVisualizationUsd)}
-          hint={`${summary.successfulVisualizations} succesvol · ${summary.mockVisualizations} mock`}
+          hint={`${summary.successfulVisualizations} succesvol · ~€0,15–0,30 per render (high) is normaal`}
         />
         <StatCard
           label="Gem. kosten per aanvraag"
