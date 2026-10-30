@@ -225,7 +225,7 @@ function aiDescription(family, name) {
     case 'wood':
       return `kitchen cabinet wrap with realistic ${name} wood grain texture and matte finish, preserve layout and only change cabinet fronts`;
     case 'stone':
-      return `kitchen cabinet wrap with realistic ${name} stone surface texture and matte finish, preserve layout and only change cabinet fronts`;
+      return `a realistic ${name} stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only`;
     case 'metal':
       return `kitchen cabinet wrap with realistic ${name} metallic finish, preserve layout and only change cabinet fronts`;
     default:
@@ -243,7 +243,7 @@ function familyToType(family) {
 function familyLabel(family) {
   if (family === 'single-color') return 'Single Color';
   if (family === 'wood') return 'Wood';
-  if (family === 'stone') return 'Stone';
+  if (family === 'stone') return 'Aanrechtblad';
   return 'Metal';
 }
 

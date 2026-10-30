@@ -9,7 +9,7 @@ const filters: { value: MaterialFilter; label: string }[] = [
   { value: 'all', label: 'Alles' },
   { value: 'single-color', label: 'Single Color' },
   { value: 'wood', label: 'Hout' },
-  { value: 'stone', label: 'Steen' },
+  { value: 'stone', label: 'Aanrecht' },
   { value: 'metal', label: 'Metaal' },
 ];
 

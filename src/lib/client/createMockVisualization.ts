@@ -19,22 +19,29 @@ export async function createMockVisualization(
 
       context.drawImage(image, 0, 0);
 
-      const cabinetTop = image.naturalHeight * 0.28;
+      const isCountertop = material.family === 'stone';
+      const regionTop = isCountertop
+        ? image.naturalHeight * 0.46
+        : image.naturalHeight * 0.28;
+      const regionHeight = isCountertop
+        ? image.naturalHeight * 0.1
+        : image.naturalHeight - regionTop;
+
       context.save();
       context.globalAlpha = material.type === 'wood' ? 0.62 : 0.55;
       context.globalCompositeOperation =
         material.type === 'wood' ? 'multiply' : 'color';
       context.fillStyle = material.preview;
-      context.fillRect(0, cabinetTop, image.naturalWidth, image.naturalHeight - cabinetTop);
+      context.fillRect(0, regionTop, image.naturalWidth, regionHeight);
       context.restore();
 
       context.save();
       context.globalAlpha = 0.25;
-      const gradient = context.createLinearGradient(0, cabinetTop, 0, image.naturalHeight);
+      const gradient = context.createLinearGradient(0, regionTop, 0, regionTop + regionHeight);
       gradient.addColorStop(0, 'transparent');
       gradient.addColorStop(1, material.preview);
       context.fillStyle = gradient;
-      context.fillRect(0, cabinetTop, image.naturalWidth, image.naturalHeight - cabinetTop);
+      context.fillRect(0, regionTop, image.naturalWidth, regionHeight);
       context.restore();
 
       resolve(canvas.toDataURL('image/jpeg', 0.92));

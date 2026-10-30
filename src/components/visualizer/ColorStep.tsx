@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { MaterialGrid } from '@/components/visualizer/MaterialGrid';
 import { StepBackButton } from '@/components/visualizer/StepBackButton';
+import { isCountertopMaterial } from '@/lib/ai/buildKitchenVisualizationPrompt';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
 import { sendEmbedEvent } from '@/lib/embed/events';
@@ -59,6 +60,7 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
 
   const material = activeMaterialId ? getMaterialById(activeMaterialId) : null;
   const canVisualize = Boolean(material?.image);
+  const countertopPreview = material ? isCountertopMaterial(material) : false;
   const twoSamplesSelected = selectedSampleIds.length === config.maxSamples;
 
   return (
@@ -69,7 +71,8 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
         <h2 className="text-sm font-semibold text-slate-900">2. Welke kleur wil je proberen?</h2>
         <p className="mt-2 text-sm text-slate-600">
           Vink linksboven op de kaart direct maximaal 2 samples aan. Optioneel kun je een kleur
-          eerst op je keuken bekijken.
+          eerst op je keuken bekijken. Steen/aanrecht-kleuren worden alleen op het werkblad
+          getoond; kastfolie blijft zoals op je foto.
         </p>
 
         <div className="mt-5">
@@ -115,7 +118,9 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
           {material && !twoSamplesSelected && canVisualize && (
             <Button type="button" size="lg" className="w-full sm:w-auto" onClick={handleGenerate}>
               <Sparkles className="h-4 w-4" />
-              Bekijk deze kleur op mijn keuken
+              {countertopPreview
+                ? 'Bekijk dit aanrechtblad op mijn keuken'
+                : 'Bekijk deze kleur op mijn keuken'}
             </Button>
           )}
 

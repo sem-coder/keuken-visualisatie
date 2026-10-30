@@ -974,12 +974,12 @@
       "code": "ST 168",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST168.webp",
       "supplier": "ONIT",
       "sku": "ST168",
-      "aiDescription": "kitchen cabinet wrap with realistic Seris stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Seris stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -988,12 +988,12 @@
       "code": "ST 173",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST173.webp",
       "supplier": "ONIT",
       "sku": "ST173",
-      "aiDescription": "kitchen cabinet wrap with realistic Luxe Vein stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Luxe Vein stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1002,12 +1002,12 @@
       "code": "ST 167",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST167.webp",
       "supplier": "ONIT",
       "sku": "ST167",
-      "aiDescription": "kitchen cabinet wrap with realistic Vellum stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Vellum stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1016,12 +1016,12 @@
       "code": "LE 012",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/LE012.webp",
       "supplier": "ONIT",
       "sku": "LE012",
-      "aiDescription": "kitchen cabinet wrap with realistic Mora stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Mora stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1030,12 +1030,12 @@
       "code": "LE 011",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/LE011.webp",
       "supplier": "ONIT",
       "sku": "LE011",
-      "aiDescription": "kitchen cabinet wrap with realistic Noma stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Noma stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1044,12 +1044,12 @@
       "code": "PS 514",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/PS514.webp",
       "supplier": "ONIT",
       "sku": "PS514",
-      "aiDescription": "kitchen cabinet wrap with realistic Dark Nero stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Dark Nero stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1058,12 +1058,12 @@
       "code": "ST 172",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST172.webp",
       "supplier": "ONIT",
       "sku": "ST172",
-      "aiDescription": "kitchen cabinet wrap with realistic Alcino stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Alcino stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1072,12 +1072,12 @@
       "code": "ST 155",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST155.webp",
       "supplier": "ONIT",
       "sku": "ST155",
-      "aiDescription": "kitchen cabinet wrap with realistic Onyx 2.0 stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Onyx 2.0 stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1086,12 +1086,12 @@
       "code": "LE 013",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/LE013.webp",
       "supplier": "ONIT",
       "sku": "LE013",
-      "aiDescription": "kitchen cabinet wrap with realistic Riva stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Riva stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1100,12 +1100,12 @@
       "code": "ST 203",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST203.webp",
       "supplier": "ONIT",
       "sku": "ST203",
-      "aiDescription": "kitchen cabinet wrap with realistic Snowpeak stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Snowpeak stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1114,12 +1114,12 @@
       "code": "ST 253",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST253.webp",
       "supplier": "ONIT",
       "sku": "ST253",
-      "aiDescription": "kitchen cabinet wrap with realistic Cream Veil stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Cream Veil stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1128,12 +1128,12 @@
       "code": "ST 251",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST251.webp",
       "supplier": "ONIT",
       "sku": "ST251",
-      "aiDescription": "kitchen cabinet wrap with realistic Fractura Shell 2.0 stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Fractura Shell 2.0 stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1142,12 +1142,12 @@
       "code": "ST 254",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST254.webp",
       "supplier": "ONIT",
       "sku": "ST254",
-      "aiDescription": "kitchen cabinet wrap with realistic Soft Chalk stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Soft Chalk stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1156,12 +1156,12 @@
       "code": "ST 062",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST062.webp",
       "supplier": "ONIT",
       "sku": "ST062",
-      "aiDescription": "kitchen cabinet wrap with realistic Lumira stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Lumira stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1170,12 +1170,12 @@
       "code": "ST 061",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST061.webp",
       "supplier": "ONIT",
       "sku": "ST061",
-      "aiDescription": "kitchen cabinet wrap with realistic Norvia stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Norvia stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1184,11 +1184,11 @@
       "code": "NS 704",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS704",
-      "aiDescription": "kitchen cabinet wrap with realistic Middle Cement stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Middle Cement stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1197,11 +1197,11 @@
       "code": "NS 403",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS403",
-      "aiDescription": "kitchen cabinet wrap with realistic Dark Concrete Beton stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Dark Concrete Beton stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1210,11 +1210,11 @@
       "code": "PNC 49",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "PNC49",
-      "aiDescription": "kitchen cabinet wrap with realistic Fracture White stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Fracture White stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1223,11 +1223,11 @@
       "code": "NS 703",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS703",
-      "aiDescription": "kitchen cabinet wrap with realistic Light Cement stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Light Cement stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1236,12 +1236,12 @@
       "code": "ST 504",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST504.webp",
       "supplier": "ONIT",
       "sku": "ST504",
-      "aiDescription": "kitchen cabinet wrap with realistic Draculos stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Draculos stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1250,12 +1250,12 @@
       "code": "ST 505",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST505.webp",
       "supplier": "ONIT",
       "sku": "ST505",
-      "aiDescription": "kitchen cabinet wrap with realistic Darco stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Darco stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1264,11 +1264,11 @@
       "code": "NS 806",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS806",
-      "aiDescription": "kitchen cabinet wrap with realistic Travetine stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Travetine stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1277,12 +1277,12 @@
       "code": "ST 118",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST118.webp",
       "supplier": "ONIT",
       "sku": "ST118",
-      "aiDescription": "kitchen cabinet wrap with realistic Stone Veil stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Stone Veil stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1291,11 +1291,11 @@
       "code": "ST 252",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "ST252",
-      "aiDescription": "kitchen cabinet wrap with realistic Fractura Grit 2.0 stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Fractura Grit 2.0 stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1304,11 +1304,11 @@
       "code": "PM 004",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "PM004",
-      "aiDescription": "kitchen cabinet wrap with realistic Dark Terrazzo stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Dark Terrazzo stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1317,12 +1317,12 @@
       "code": "ST 166",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST166.webp",
       "supplier": "ONIT",
       "sku": "ST166",
-      "aiDescription": "kitchen cabinet wrap with realistic Velora stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Velora stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1331,12 +1331,12 @@
       "code": "ST 102",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "image": "/materials/onit/ST102.webp",
       "supplier": "ONIT",
       "sku": "ST102",
-      "aiDescription": "kitchen cabinet wrap with realistic Litus 2.0 stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Litus 2.0 stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1345,11 +1345,11 @@
       "code": "NS 602",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS602",
-      "aiDescription": "kitchen cabinet wrap with realistic Patina Earth stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Patina Earth stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1358,11 +1358,11 @@
       "code": "NS 601",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS601",
-      "aiDescription": "kitchen cabinet wrap with realistic Patina Moon stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Patina Moon stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1371,11 +1371,11 @@
       "code": "NS 428",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS428",
-      "aiDescription": "kitchen cabinet wrap with realistic Natural Slate stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Natural Slate stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1384,11 +1384,11 @@
       "code": "NS 816",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS816",
-      "aiDescription": "kitchen cabinet wrap with realistic Venetiano stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Venetiano stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1397,11 +1397,11 @@
       "code": "PM 006",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "PM006",
-      "aiDescription": "kitchen cabinet wrap with realistic Grey Marble stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Grey Marble stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1410,11 +1410,11 @@
       "code": "NS 401",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS401",
-      "aiDescription": "kitchen cabinet wrap with realistic Bright Concrete Beton stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Bright Concrete Beton stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
@@ -1423,11 +1423,11 @@
       "code": "NS 804",
       "type": "stone",
       "family": "stone",
-      "category": "Stone",
+      "category": "Aanrechtblad",
       "preview": "#E8E8E8",
       "supplier": "ONIT",
       "sku": "NS804",
-      "aiDescription": "kitchen cabinet wrap with realistic Nero Marquina stone surface texture and matte finish, preserve layout and only change cabinet fronts",
+      "aiDescription": "a realistic Nero Marquina stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
       "active": true
     },
     {
