@@ -58,6 +58,7 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
   };
 
   const material = activeMaterialId ? getMaterialById(activeMaterialId) : null;
+  const canVisualize = Boolean(material?.image);
   const twoSamplesSelected = selectedSampleIds.length === config.maxSamples;
 
   return (
@@ -111,11 +112,17 @@ export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
             </div>
           )}
 
-          {material && !twoSamplesSelected && (
+          {material && !twoSamplesSelected && canVisualize && (
             <Button type="button" size="lg" className="w-full sm:w-auto" onClick={handleGenerate}>
               <Sparkles className="h-4 w-4" />
               Bekijk deze kleur op mijn keuken
             </Button>
+          )}
+
+          {material && !canVisualize && (
+            <p className="text-sm text-slate-600">
+              Voor {material.name} is nog geen preview beschikbaar; je kunt wel een sample aanvragen.
+            </p>
           )}
 
           {selectedSampleIds.length === 1 && (

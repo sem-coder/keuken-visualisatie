@@ -64,10 +64,18 @@ export function MaterialCard({
       )}
 
       <button type="button" onClick={() => onSelect(material.id)} className="flex flex-col text-left">
-        <div className="aspect-square w-full" style={{ backgroundColor: material.preview }}>
-          {material.image && (
+        <div
+          className="relative aspect-square w-full overflow-hidden"
+          style={{ backgroundColor: material.preview }}
+        >
+          {material.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={material.image} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center gap-1 bg-stone-100 px-2 text-center">
+              <span className="text-[11px] font-medium text-stone-500">Preview volgt</span>
+              <span className="text-[10px] text-stone-400">{material.code}</span>
+            </div>
           )}
         </div>
         <div className="p-3 pt-2">

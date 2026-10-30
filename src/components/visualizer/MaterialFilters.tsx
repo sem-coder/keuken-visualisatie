@@ -7,10 +7,10 @@ import { cn } from '@/lib/utils';
 
 const filters: { value: MaterialFilter; label: string }[] = [
   { value: 'all', label: 'Alles' },
-  { value: 'light', label: 'Licht' },
-  { value: 'dark', label: 'Donker' },
-  { value: 'green', label: 'Groen' },
-  { value: 'wood', label: 'Houtlook' },
+  { value: 'single-color', label: 'Single Color' },
+  { value: 'wood', label: 'Hout' },
+  { value: 'stone', label: 'Steen' },
+  { value: 'metal', label: 'Metaal' },
 ];
 
 interface MaterialFiltersProps {

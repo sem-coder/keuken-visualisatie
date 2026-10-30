@@ -31,12 +31,7 @@ export function MaterialGrid({
   const materials = useMemo(() => {
     const query = search.trim().toLowerCase();
     return getActiveMaterials().filter((material) => {
-      const matchesFilter =
-        filter === 'all' ||
-        (filter === 'light' && (material.category === 'Licht' || material.category === 'Neutraal')) ||
-        (filter === 'dark' && material.category === 'Donker') ||
-        (filter === 'green' && material.category === 'Groen') ||
-        (filter === 'wood' && material.category === 'Houtlook');
+      const matchesFilter = filter === 'all' || material.family === filter;
 
       const matchesSearch =
         !query ||
@@ -44,6 +39,9 @@ export function MaterialGrid({
         material.code.toLowerCase().includes(query);
 
       return matchesFilter && matchesSearch;
+    }).sort((a, b) => {
+      if (Boolean(a.image) === Boolean(b.image)) return a.name.localeCompare(b.name, 'nl');
+      return a.image ? -1 : 1;
     });
   }, [filter, search]);
 

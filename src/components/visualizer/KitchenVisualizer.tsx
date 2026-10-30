@@ -176,7 +176,10 @@ export function KitchenVisualizer({
 
   const handleGenerateSelected = useCallback(async () => {
     const { selectedSampleIds, visualizations } = useKitchenVisualizer.getState();
-    const missing = selectedSampleIds.filter((id) => !visualizations[id]);
+    const missing = selectedSampleIds.filter((id) => {
+      const material = getMaterialById(id);
+      return Boolean(material?.image) && !visualizations[id];
+    });
 
     if (missing.length === 0) {
       setStep('samples');
