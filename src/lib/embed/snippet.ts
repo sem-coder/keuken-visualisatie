@@ -34,7 +34,7 @@ export function getEmbedSnippet(slug: string, baseUrl: string): string {
   frameborder="0"
   scrolling="yes"
   allow="camera *; clipboard-read *; clipboard-write *"
-  style="width:100%;max-width:100%;min-width:0;border:0;display:block;min-height:480px;height:480px;"
+  style="width:100%;max-width:100%;min-width:0;border:0;display:block;min-height:520px;height:720px;"
 ></iframe>
 </div>
 <script src="${root}/embed.js" defer></script>`;

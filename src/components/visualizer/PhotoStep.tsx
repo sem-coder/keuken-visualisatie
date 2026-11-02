@@ -7,7 +7,10 @@ import { KitchenPhoto } from '@/components/visualizer/KitchenPhoto';
 import { PhotoUpload } from '@/components/visualizer/PhotoUpload';
 import { compressKitchenImage } from '@/lib/client/compressKitchenImage';
 import { sendEmbedEvent } from '@/lib/embed/events';
+import { useEmbedMode } from '@/hooks/useEmbedMode';
+import { notifyEmbedHeight } from '@/lib/embed/notifyHeight';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
+import { cn } from '@/lib/utils';
 
 const tips = [
   'Zorg voor voldoende licht',
@@ -19,6 +22,7 @@ const tips = [
 export function PhotoStep() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [compressing, setCompressing] = useState(false);
+  const embedded = useEmbedMode();
   const { originalPreviewUrl, setOriginalImage, setStep } = useKitchenVisualizer();
 
   const handleSelect = async (file: File) => {
@@ -30,6 +34,10 @@ export function PhotoStep() {
       sendEmbedEvent('kitchen_photo_uploaded', {
         fileSize: compressed.size,
         fileType: compressed.type,
+      });
+      requestAnimationFrame(() => {
+        notifyEmbedHeight();
+        window.setTimeout(notifyEmbedHeight, 300);
       });
     } finally {
       setCompressing(false);
@@ -54,10 +62,12 @@ export function PhotoStep() {
           ) : (
             <KitchenPhoto
               src={originalPreviewUrl}
+              compact={embedded}
               onReplace={() => inputRef.current?.click()}
               onRemove={() => {
                 if (originalPreviewUrl) URL.revokeObjectURL(originalPreviewUrl);
                 setOriginalImage(null, null);
+                notifyEmbedHeight();
               }}
             />
           )}
@@ -88,8 +98,19 @@ export function PhotoStep() {
         </div>
 
         {originalPreviewUrl && (
-          <div className="mt-6 flex justify-end">
-            <Button type="button" size="lg" onClick={() => setStep('colors')}>
+          <div
+            className={cn(
+              'mt-6 flex justify-end',
+              embedded &&
+                'sticky bottom-0 z-10 -mx-4 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6',
+            )}
+          >
+            <Button
+              type="button"
+              size="lg"
+              className={embedded ? 'w-full sm:w-auto' : undefined}
+              onClick={() => setStep('colors')}
+            >
               Kies een kleur
               <ArrowRight className="h-4 w-4" />
             </Button>

@@ -2,20 +2,7 @@
 
 import { useEffect } from 'react';
 import { sendHeightToParent } from '@/lib/embed/events';
-
-function measureEmbedHeight(): number {
-  const root = document.querySelector('[data-kv-embed-root]');
-  if (root instanceof HTMLElement) {
-    return root.scrollHeight;
-  }
-
-  const doc = document.documentElement;
-  const body = document.body;
-  return Math.min(
-    Math.max(doc.scrollHeight, body.scrollHeight),
-    Math.max(doc.offsetHeight, body.offsetHeight),
-  );
-}
+import { measureEmbedRootHeight } from '@/lib/embed/notifyHeight';
 
 export function useIframeAutoHeight(resizeKey: string): void {
   useEffect(() => {
@@ -24,7 +11,7 @@ export function useIframeAutoHeight(resizeKey: string): void {
     let frame = 0;
 
     const notify = () => {
-      sendHeightToParent(measureEmbedHeight() + 4);
+      sendHeightToParent(measureEmbedRootHeight() + 4);
     };
 
     const scheduleNotify = () => {
@@ -33,6 +20,9 @@ export function useIframeAutoHeight(resizeKey: string): void {
     };
 
     scheduleNotify();
+    const delayed = [50, 200, 600, 1200].map((ms) =>
+      window.setTimeout(scheduleNotify, ms),
+    );
 
     const root = document.querySelector('[data-kv-embed-root]');
     const observer = new ResizeObserver(scheduleNotify);
@@ -45,6 +35,11 @@ export function useIframeAutoHeight(resizeKey: string): void {
     }
 
     window.addEventListener('resize', scheduleNotify);
+
+    const onImageLoad = () => scheduleNotify();
+    root?.querySelectorAll('img').forEach((img) => {
+      if (!img.complete) img.addEventListener('load', onImageLoad, { once: true });
+    });
 
     const onMessage = (event: MessageEvent) => {
       if (
@@ -59,9 +54,13 @@ export function useIframeAutoHeight(resizeKey: string): void {
 
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      delayed.forEach((id) => window.clearTimeout(id));
       observer.disconnect();
       window.removeEventListener('resize', scheduleNotify);
       window.removeEventListener('message', onMessage);
+      root?.querySelectorAll('img').forEach((img) => {
+        img.removeEventListener('load', onImageLoad);
+      });
     };
   }, [resizeKey]);
 }

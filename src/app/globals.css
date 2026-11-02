@@ -22,7 +22,8 @@ html:has([data-kv-embed-root]) body {
   min-height: 0 !important;
   height: auto !important;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #ffffff;
 }
 
@@ -40,16 +41,17 @@ html.kv-embed * {
   box-sizing: border-box;
 }
 
-html:has([data-kv-embed-root]) img,
 html:has([data-kv-embed-root]) video,
-html.kv-embed img,
 html.kv-embed video {
   max-width: 100%;
   height: auto;
 }
 
-html.kv-embed body {
-  -webkit-overflow-scrolling: touch;
+/* Next/Image fill mag niet door height:auto worden opengetrokken */
+html:has([data-kv-embed-root]) img:not([data-nimg]),
+html.kv-embed img:not([data-nimg]) {
+  max-width: 100%;
+  height: auto;
 }
 
 @keyframes fade-in {
