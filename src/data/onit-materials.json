@@ -178,7 +178,8 @@
       "supplier": "ONIT",
       "sku": "S146",
       "aiDescription": "smooth matte kitchen wrap in Sunflower color with uniform finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/S146.webp"
     },
     {
       "id": "basswood-s212",
@@ -639,7 +640,8 @@
       "supplier": "ONIT",
       "sku": "S140",
       "aiDescription": "smooth matte kitchen wrap in Pure Black color with uniform finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/S140.webp"
     },
     {
       "id": "scratch-card-s210",
@@ -652,7 +654,8 @@
       "supplier": "ONIT",
       "sku": "S210",
       "aiDescription": "smooth matte kitchen wrap in Scratch Card color with uniform finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/S210.webp"
     },
     {
       "id": "turtle-2-0-sc157",
@@ -749,7 +752,8 @@
       "supplier": "ONIT",
       "sku": "W638",
       "aiDescription": "kitchen cabinet wrap with realistic Saltu wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/W638.webp"
     },
     {
       "id": "irish-light-2-0-wd227",
@@ -790,7 +794,8 @@
       "supplier": "ONIT",
       "sku": "ZX119",
       "aiDescription": "kitchen cabinet wrap with realistic Fructus wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/ZX119.webp"
     },
     {
       "id": "radiant-rabbit-zx132",
@@ -803,7 +808,8 @@
       "supplier": "ONIT",
       "sku": "ZX132",
       "aiDescription": "kitchen cabinet wrap with realistic Radiant Rabbit wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/ZX132.webp"
     },
     {
       "id": "old-bench-2-0-wd409",
@@ -844,7 +850,8 @@
       "supplier": "ONIT",
       "sku": "ZX111",
       "aiDescription": "kitchen cabinet wrap with realistic Alba Medi wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/ZX111.webp"
     },
     {
       "id": "resina-2-0-wd004",
@@ -885,7 +892,8 @@
       "supplier": "ONIT",
       "sku": "ZX123",
       "aiDescription": "kitchen cabinet wrap with realistic Lignea wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/ZX123.webp"
     },
     {
       "id": "dignus-w816",
@@ -898,7 +906,8 @@
       "supplier": "ONIT",
       "sku": "W816",
       "aiDescription": "kitchen cabinet wrap with realistic Dignus wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/W816.webp"
     },
     {
       "id": "chestnut-w207",
@@ -911,7 +920,8 @@
       "supplier": "ONIT",
       "sku": "W207",
       "aiDescription": "kitchen cabinet wrap with realistic Chestnut wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/W207.webp"
     },
     {
       "id": "hazel-2-0-wd405",
@@ -966,7 +976,8 @@
       "supplier": "ONIT",
       "sku": "W949",
       "aiDescription": "kitchen cabinet wrap with realistic Honey wood grain texture and matte finish, preserve layout and only change cabinet fronts",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/W949.webp"
     },
     {
       "id": "seris-st168",
@@ -1189,7 +1200,8 @@
       "supplier": "ONIT",
       "sku": "NS704",
       "aiDescription": "a realistic Middle Cement stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS704.webp"
     },
     {
       "id": "dark-concrete-beton-ns403",
@@ -1202,7 +1214,8 @@
       "supplier": "ONIT",
       "sku": "NS403",
       "aiDescription": "a realistic Dark Concrete Beton stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS403.webp"
     },
     {
       "id": "fracture-white-pnc49",
@@ -1215,7 +1228,8 @@
       "supplier": "ONIT",
       "sku": "PNC49",
       "aiDescription": "a realistic Fracture White stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/PNC49.webp"
     },
     {
       "id": "light-cement-ns703",
@@ -1228,7 +1242,8 @@
       "supplier": "ONIT",
       "sku": "NS703",
       "aiDescription": "a realistic Light Cement stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS703.webp"
     },
     {
       "id": "draculos-st504",
@@ -1269,7 +1284,8 @@
       "supplier": "ONIT",
       "sku": "NS806",
       "aiDescription": "a realistic Travetine stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS806.webp"
     },
     {
       "id": "stone-veil-st118",
@@ -1296,7 +1312,8 @@
       "supplier": "ONIT",
       "sku": "ST252",
       "aiDescription": "a realistic Fractura Grit 2.0 stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/ST252.webp"
     },
     {
       "id": "dark-terrazzo-pm004",
@@ -1309,7 +1326,8 @@
       "supplier": "ONIT",
       "sku": "PM004",
       "aiDescription": "a realistic Dark Terrazzo stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/PM004.webp"
     },
     {
       "id": "velora-st166",
@@ -1350,7 +1368,8 @@
       "supplier": "ONIT",
       "sku": "NS602",
       "aiDescription": "a realistic Patina Earth stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS602.webp"
     },
     {
       "id": "patina-moon-ns601",
@@ -1363,7 +1382,8 @@
       "supplier": "ONIT",
       "sku": "NS601",
       "aiDescription": "a realistic Patina Moon stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS601.webp"
     },
     {
       "id": "natural-slate-ns428",
@@ -1376,7 +1396,8 @@
       "supplier": "ONIT",
       "sku": "NS428",
       "aiDescription": "a realistic Natural Slate stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS428.webp"
     },
     {
       "id": "venetiano-ns816",
@@ -1389,7 +1410,8 @@
       "supplier": "ONIT",
       "sku": "NS816",
       "aiDescription": "a realistic Venetiano stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS816.webp"
     },
     {
       "id": "grey-marble-pm006",
@@ -1402,7 +1424,8 @@
       "supplier": "ONIT",
       "sku": "PM006",
       "aiDescription": "a realistic Grey Marble stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/PM006.webp"
     },
     {
       "id": "bright-concrete-beton-ns401",
@@ -1415,7 +1438,8 @@
       "supplier": "ONIT",
       "sku": "NS401",
       "aiDescription": "a realistic Bright Concrete Beton stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS401.webp"
     },
     {
       "id": "nero-marquina-ns804",
@@ -1428,7 +1452,8 @@
       "supplier": "ONIT",
       "sku": "NS804",
       "aiDescription": "a realistic Nero Marquina stone countertop and worktop surface with natural texture and matte finish, for the kitchen worktop only",
-      "active": true
+      "active": true,
+      "image": "/materials/onit/NS804.webp"
     },
     {
       "id": "riven-me164",
@@ -1591,156 +1616,6 @@
       "name": "Balm Heaven",
       "code": "SC 195",
       "codeNorm": "SC195"
-    },
-    {
-      "family": "single-color",
-      "name": "Sunflower",
-      "code": "S 146",
-      "codeNorm": "S146"
-    },
-    {
-      "family": "single-color",
-      "name": "Pure Black",
-      "code": "S140",
-      "codeNorm": "S140"
-    },
-    {
-      "family": "single-color",
-      "name": "Scratch Card",
-      "code": "S210",
-      "codeNorm": "S210"
-    },
-    {
-      "family": "wood",
-      "name": "Saltu",
-      "code": "W638",
-      "codeNorm": "W638"
-    },
-    {
-      "family": "wood",
-      "name": "Fructus",
-      "code": "ZX119",
-      "codeNorm": "ZX119"
-    },
-    {
-      "family": "wood",
-      "name": "Radiant Rabbit",
-      "code": "ZX132",
-      "codeNorm": "ZX132"
-    },
-    {
-      "family": "wood",
-      "name": "Alba Medi",
-      "code": "ZX 111",
-      "codeNorm": "ZX111"
-    },
-    {
-      "family": "wood",
-      "name": "Lignea",
-      "code": "ZX123",
-      "codeNorm": "ZX123"
-    },
-    {
-      "family": "wood",
-      "name": "Dignus",
-      "code": "W816",
-      "codeNorm": "W816"
-    },
-    {
-      "family": "wood",
-      "name": "Chestnut",
-      "code": "W207",
-      "codeNorm": "W207"
-    },
-    {
-      "family": "wood",
-      "name": "Honey",
-      "code": "W949",
-      "codeNorm": "W949"
-    },
-    {
-      "family": "stone",
-      "name": "Middle Cement",
-      "code": "NS 704",
-      "codeNorm": "NS704"
-    },
-    {
-      "family": "stone",
-      "name": "Dark Concrete Beton",
-      "code": "NS 403",
-      "codeNorm": "NS403"
-    },
-    {
-      "family": "stone",
-      "name": "Fracture White",
-      "code": "PNC 49",
-      "codeNorm": "PNC49"
-    },
-    {
-      "family": "stone",
-      "name": "Light Cement",
-      "code": "NS 703",
-      "codeNorm": "NS703"
-    },
-    {
-      "family": "stone",
-      "name": "Travetine",
-      "code": "NS 806",
-      "codeNorm": "NS806"
-    },
-    {
-      "family": "stone",
-      "name": "Fractura Grit 2.0",
-      "code": "ST 252",
-      "codeNorm": "ST252"
-    },
-    {
-      "family": "stone",
-      "name": "Dark Terrazzo",
-      "code": "PM 004",
-      "codeNorm": "PM004"
-    },
-    {
-      "family": "stone",
-      "name": "Patina Earth",
-      "code": "NS 602",
-      "codeNorm": "NS602"
-    },
-    {
-      "family": "stone",
-      "name": "Patina Moon",
-      "code": "NS 601",
-      "codeNorm": "NS601"
-    },
-    {
-      "family": "stone",
-      "name": "Natural Slate",
-      "code": "NS 428",
-      "codeNorm": "NS428"
-    },
-    {
-      "family": "stone",
-      "name": "Venetiano",
-      "code": "NS 816",
-      "codeNorm": "NS816"
-    },
-    {
-      "family": "stone",
-      "name": "Grey Marble",
-      "code": "PM 006",
-      "codeNorm": "PM006"
-    },
-    {
-      "family": "stone",
-      "name": "Bright Concrete Beton",
-      "code": "NS 401",
-      "codeNorm": "NS401"
-    },
-    {
-      "family": "stone",
-      "name": "Nero Marquina",
-      "code": "NS 804",
-      "codeNorm": "NS804"
     }
   ]
 }

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:onit-materials": "node scripts/build-onit-materials.mjs"
+    "build:onit-materials": "node scripts/build-onit-materials.mjs && node scripts/optimize-onit-materials.mjs",
+    "optimize:onit-materials": "node scripts/optimize-onit-materials.mjs"
   },
   "dependencies": {
     "@vercel/blob": "^2.8.0",

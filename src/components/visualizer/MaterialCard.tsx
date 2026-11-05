@@ -1,6 +1,7 @@
 'use client';
 
 import type { Material } from '@/lib/materials';
+import { LazyMaterialThumb } from '@/components/visualizer/LazyMaterialThumb';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -69,8 +70,7 @@ export function MaterialCard({
           style={{ backgroundColor: material.preview }}
         >
           {material.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={material.image} alt="" className="h-full w-full object-cover" />
+            <LazyMaterialThumb src={material.image} alt={material.name} />
           ) : (
             <div className="flex h-full flex-col items-center justify-center gap-1 bg-stone-100 px-2 text-center">
               <span className="text-[11px] font-medium text-stone-500">Preview volgt</span>
