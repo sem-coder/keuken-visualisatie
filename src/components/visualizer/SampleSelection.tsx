@@ -32,8 +32,8 @@ export function SampleSelection({ onGenerateSelected }: SampleSelectionProps) {
     <section className="animate-in fade-in duration-300">
       <StepBackButton label="Terug naar kleuren" to="colors" />
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-        <h2 className="text-xl font-bold text-slate-900">Jouw samples</h2>
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+        <h2 className="text-lg font-bold text-slate-900 sm:text-xl">Jouw samples</h2>
         <p className="mt-2 text-sm text-slate-600">
           {allVisualized
             ? 'Bekijk je keuken in de gekozen kleuren voordat je je gegevens invult.'

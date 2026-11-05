@@ -2,6 +2,7 @@
 
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useInIframe } from '@/hooks/useEmbedMode';
 import { getPreviousStep } from '@/lib/stepNavigation';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import type { VisualizerStep } from '@/types/visualizer';
@@ -12,10 +13,11 @@ interface StepBackButtonProps {
 }
 
 export function StepBackButton({ label = 'Terug', to }: StepBackButtonProps) {
+  const inIframe = useInIframe();
   const { step, setStep } = useKitchenVisualizer();
   const target = to ?? getPreviousStep(step);
 
-  if (!target || step === 'generating' || step === 'success') return null;
+  if (inIframe || !target || step === 'generating' || step === 'success') return null;
 
   return (
     <Button

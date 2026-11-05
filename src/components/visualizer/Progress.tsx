@@ -40,11 +40,13 @@ export function Progress() {
     setStep(target);
   };
 
+  const currentStep = progressSteps[Math.min(current, progressSteps.length - 1)];
+
   return (
     <div
       className={cn(
-        'rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm sm:px-4',
-        embedded ? 'mb-4' : 'mb-8',
+        'rounded-2xl border border-slate-200 bg-white px-3 py-2.5 shadow-sm sm:px-4 sm:py-3',
+        embedded ? 'sticky top-0 z-20 mb-3 bg-white/95 backdrop-blur-sm' : 'mb-8',
       )}
     >
       <div className="hidden sm:flex items-center justify-center gap-2 text-sm text-slate-500">
@@ -87,8 +89,12 @@ export function Progress() {
 
       <div className="sm:hidden">
         <div className="flex items-center justify-between mb-2">
-          <p className="text-sm text-slate-500">
-            Stap {Math.min(current + 1, 5)} van 5
+          <p className="text-sm text-slate-600">
+            <span className="font-semibold text-slate-900">{currentStep?.label}</span>
+            <span className="text-slate-500">
+              {' '}
+              · stap {Math.min(current + 1, 5)}/5
+            </span>
           </p>
           {current > 0 && (
             <button
