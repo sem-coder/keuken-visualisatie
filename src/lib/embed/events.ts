@@ -33,6 +33,18 @@ export function sendEmbedEvent(
   window.parent.postMessage(message, getParentOrigin());
 }
 
+export function sendScrollIntoViewToParent(): void {
+  if (typeof window === 'undefined') return;
+  if (window.self === window.top) return;
+
+  const payload = { type: 'kitchen-visualizer-scroll-into-view' as const };
+  window.parent.postMessage(payload, '*');
+  const configured = getParentOrigin();
+  if (configured && configured !== '*') {
+    window.parent.postMessage(payload, configured);
+  }
+}
+
 export function sendHeightToParent(height: number): void {
   if (typeof window === 'undefined') return;
   if (window.self === window.top) return;

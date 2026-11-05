@@ -18,7 +18,13 @@
   display: block !important;
   min-height: 520px;
   height: 720px;
-  max-height: none !important;
+}
+
+@media (max-width: 767px) {
+  .kitchen-visualizer-embed iframe {
+    max-height: 88vh !important;
+    min-height: min(520px, 88vh) !important;
+  }
 }
 
 /* Webflow sections sometimes force 100vh — reset for our embed wrapper only */

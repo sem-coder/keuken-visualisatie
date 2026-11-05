@@ -13,7 +13,12 @@ import { SuccessStep } from '@/components/visualizer/SuccessStep';
 import { useEmbedDocument, useInIframe } from '@/hooks/useEmbedMode';
 import { useIframeAutoHeight } from '@/hooks/useIframeAutoHeight';
 import { mergeAttribution, parseAttributionFromSearch } from '@/lib/embed/attribution';
-import { isParentMessage, sendEmbedEvent } from '@/lib/embed/events';
+import {
+  isParentMessage,
+  sendEmbedEvent,
+  sendScrollIntoViewToParent,
+} from '@/lib/embed/events';
+import { notifyEmbedHeight } from '@/lib/embed/notifyHeight';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
 import { createMockVisualization } from '@/lib/client/createMockVisualization';
@@ -60,6 +65,17 @@ export function KitchenVisualizer({
   useIframeAutoHeight(
     `${step}-${selectedSampleIds.length}-${Boolean(generationError)}-${Boolean(generationFailed)}-${Boolean(originalPreviewUrl)}`,
   );
+
+  useEffect(() => {
+    if (!inIframe) return;
+    notifyEmbedHeight();
+    sendScrollIntoViewToParent();
+    const t = window.setTimeout(() => {
+      notifyEmbedHeight();
+      sendScrollIntoViewToParent();
+    }, 400);
+    return () => window.clearTimeout(t);
+  }, [step, inIframe, selectedSampleIds.length]);
 
   useEffect(() => {
     sendEmbedEvent('visualizer_view');

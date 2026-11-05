@@ -33,7 +33,7 @@ export function getEmbedSnippet(slug: string, baseUrl: string): string {
   title="Keuken visualisatie"
   width="100%"
   frameborder="0"
-  scrolling="no"
+  scrolling="yes"
   allow="camera *; clipboard-read *; clipboard-write *"
   style="width:100%;max-width:100%;min-width:0;border:0;display:block;min-height:520px;height:720px;"
 ></iframe>

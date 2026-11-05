@@ -96,7 +96,7 @@ export function BeforeAfterSlider({
     <div
       ref={containerRef}
       className={cn(
-        'relative w-full max-h-[min(58vh,640px)] sm:max-h-[min(72vh,640px)] select-none overflow-hidden rounded-xl border border-slate-200 bg-slate-100 touch-none shadow-sm',
+        'relative w-full min-h-[min(52vw,320px)] max-h-[min(50vh,520px)] sm:min-h-0 sm:max-h-[min(72vh,640px)] select-none overflow-hidden rounded-xl border border-slate-200 bg-slate-100 touch-none shadow-sm',
         aspectRatio === null && 'aspect-[4/3]',
         className,
       )}
