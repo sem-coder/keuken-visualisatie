@@ -27,23 +27,30 @@ export function AdminApp() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
+    <div className="space-y-8">
+      <nav
+        className="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm"
+        aria-label="Admin secties"
+      >
         <Button
           type="button"
-          variant={tab === 'stats' ? 'primary' : 'secondary'}
+          variant={tab === 'stats' ? 'primary' : 'ghost'}
+          size="sm"
+          className={tab === 'stats' ? 'shadow-sm' : 'text-slate-600'}
           onClick={() => setTab('stats')}
         >
           Gebruik & kosten
         </Button>
         <Button
           type="button"
-          variant={tab === 'clients' ? 'primary' : 'secondary'}
+          variant={tab === 'clients' ? 'primary' : 'ghost'}
+          size="sm"
+          className={tab === 'clients' ? 'shadow-sm' : 'text-slate-600'}
           onClick={() => setTab('clients')}
         >
           Klanten
         </Button>
-      </div>
+      </nav>
 
       {tab === 'stats' ? <AdminDashboard /> : <AdminClients />}
     </div>
