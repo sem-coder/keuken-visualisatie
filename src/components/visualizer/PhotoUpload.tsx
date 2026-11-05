@@ -82,7 +82,6 @@ export function PhotoUpload({ onSelect }: PhotoUploadProps) {
           ref={inputRef}
           type="file"
           accept="image/jpeg,image/jpg,image/png,image/webp"
-          capture="environment"
           className="hidden"
           onChange={handleChange}
         />
