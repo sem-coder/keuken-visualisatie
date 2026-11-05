@@ -3,7 +3,7 @@
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import type { VisualizerStep } from '@/types/visualizer';
 import { canNavigateToStep, stepToProgressIndex } from '@/lib/stepNavigation';
-import { useEmbedMode } from '@/hooks/useEmbedMode';
+import { useInIframe } from '@/hooks/useEmbedMode';
 import { cn } from '@/lib/utils';
 
 const progressSteps: { key: VisualizerStep; label: string }[] = [
@@ -15,7 +15,7 @@ const progressSteps: { key: VisualizerStep; label: string }[] = [
 ];
 
 export function Progress() {
-  const embedded = useEmbedMode();
+  const embedded = useInIframe();
   const {
     step,
     setStep,

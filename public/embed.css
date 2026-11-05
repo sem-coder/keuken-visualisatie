@@ -1,0 +1,28 @@
+/**
+ * Styles for the parent page (Webflow). Link or paste alongside the iframe embed.
+ */
+.kitchen-visualizer-embed {
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.kitchen-visualizer-embed iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  border: 0 !important;
+  display: block !important;
+  min-height: 520px;
+  height: 720px;
+  max-height: none !important;
+}
+
+/* Webflow sections sometimes force 100vh — reset for our embed wrapper only */
+.kitchen-visualizer-embed:not([data-kv-fullscreen]) {
+  min-height: 0 !important;
+  height: auto !important;
+}

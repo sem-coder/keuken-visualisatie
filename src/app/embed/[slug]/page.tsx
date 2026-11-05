@@ -8,5 +8,5 @@ export default async function EmbedPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <KitchenVisualizer clientSlug={slug} initialCompact />;
+  return <KitchenVisualizer clientSlug={slug} embedLayout="contained" />;
 }

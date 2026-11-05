@@ -9,7 +9,7 @@ import { isCountertopMaterial } from '@/lib/ai/buildKitchenVisualizationPrompt';
 import { getMaterialById } from '@/lib/materials';
 import { config } from '@/lib/config';
 import { sendEmbedEvent } from '@/lib/embed/events';
-import { useEmbedMode } from '@/hooks/useEmbedMode';
+import { useInIframe } from '@/hooks/useEmbedMode';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import { cn } from '@/lib/utils';
 
@@ -19,7 +19,7 @@ interface ColorStepProps {
 }
 
 export function ColorStep({ onGenerate, onGenerateSelected }: ColorStepProps) {
-  const embedded = useEmbedMode();
+  const embedded = useInIframe();
   const {
     activeMaterialId,
     viewedMaterialIds,

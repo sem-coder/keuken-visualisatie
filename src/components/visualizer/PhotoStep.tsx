@@ -7,7 +7,7 @@ import { KitchenPhoto } from '@/components/visualizer/KitchenPhoto';
 import { PhotoUpload } from '@/components/visualizer/PhotoUpload';
 import { compressKitchenImage } from '@/lib/client/compressKitchenImage';
 import { sendEmbedEvent } from '@/lib/embed/events';
-import { useEmbedMode } from '@/hooks/useEmbedMode';
+import { useInIframe } from '@/hooks/useEmbedMode';
 import { notifyEmbedHeight } from '@/lib/embed/notifyHeight';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import { cn } from '@/lib/utils';
@@ -22,7 +22,7 @@ const tips = [
 export function PhotoStep() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [compressing, setCompressing] = useState(false);
-  const embedded = useEmbedMode();
+  const embedded = useInIframe();
   const { originalPreviewUrl, setOriginalImage, setStep } = useKitchenVisualizer();
 
   const handleSelect = async (file: File) => {

@@ -10,7 +10,7 @@ import { ResultStep } from '@/components/visualizer/ResultStep';
 import { SampleSelection } from '@/components/visualizer/SampleSelection';
 import { SampleStickyBar } from '@/components/visualizer/SampleStickyBar';
 import { SuccessStep } from '@/components/visualizer/SuccessStep';
-import { useEmbedMode } from '@/hooks/useEmbedMode';
+import { useEmbedDocument, useInIframe } from '@/hooks/useEmbedMode';
 import { useIframeAutoHeight } from '@/hooks/useIframeAutoHeight';
 import { mergeAttribution, parseAttributionFromSearch } from '@/lib/embed/attribution';
 import { isParentMessage, sendEmbedEvent } from '@/lib/embed/events';
@@ -20,14 +20,20 @@ import { createMockVisualization } from '@/lib/client/createMockVisualization';
 import { useKitchenVisualizer } from '@/store/useKitchenVisualizer';
 import { useCallback, useEffect, useState } from 'react';
 
+export type EmbedLayout = 'contained' | 'compact';
+
 interface KitchenVisualizerProps {
   clientSlug?: string;
+  /** @deprecated use embedLayout */
   initialCompact?: boolean;
+  /** contained = centered max-width (Webflow); compact = full iframe width */
+  embedLayout?: EmbedLayout;
 }
 
 export function KitchenVisualizer({
   clientSlug: clientSlugProp,
   initialCompact = false,
+  embedLayout,
 }: KitchenVisualizerProps = {}) {
   const {
     step,
@@ -45,7 +51,11 @@ export function KitchenVisualizer({
   } = useKitchenVisualizer();
 
   const [generationFailed, setGenerationFailed] = useState(false);
-  const compactEmbed = useEmbedMode(initialCompact);
+  useEmbedDocument();
+  const inIframe = useInIframe();
+  const layout: EmbedLayout =
+    embedLayout ?? (initialCompact ? 'compact' : 'contained');
+  const compactLayout = inIframe && layout === 'compact';
 
   useIframeAutoHeight(
     `${step}-${selectedSampleIds.length}-${Boolean(generationError)}-${Boolean(generationFailed)}-${Boolean(originalPreviewUrl)}`,
@@ -213,28 +223,28 @@ export function KitchenVisualizer({
 
   return (
     <>
-      {!compactEmbed && <div className="h-1 w-full bg-brand-blue" aria-hidden />}
+      {!inIframe && <div className="h-1 w-full bg-brand-blue" aria-hidden />}
       <div
         className={
-          compactEmbed
+          compactLayout
             ? 'mx-auto w-full min-w-0 max-w-full overflow-x-hidden px-2 py-3 sm:px-4 sm:py-4'
-            : 'mx-auto max-w-6xl px-4 py-8 lg:py-12'
+            : 'mx-auto w-full min-w-0 max-w-6xl px-4 py-6 sm:py-8 lg:py-10'
         }
       >
-      <header className={compactEmbed ? 'mb-6' : 'mb-10'}>
+      <header className={compactLayout ? 'mb-6' : 'mb-8 sm:mb-10'}>
         <p className="text-sm font-semibold uppercase tracking-wider text-brand-blue">
           Keuken visualisatie
         </p>
         <h1
           className={
-            compactEmbed
+            compactLayout
               ? 'mt-2 text-lg font-bold leading-snug tracking-tight text-slate-900 break-words sm:text-2xl'
-              : 'mt-2 text-3xl font-bold tracking-tight text-slate-900 lg:text-4xl'
+              : 'mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl'
           }
         >
           <span
             className={
-              compactEmbed
+              compactLayout
                 ? 'mb-1 inline-block max-w-full bg-brand-blue-500 px-2 py-0.5 text-white'
                 : 'inline bg-brand-blue-500 px-2 py-0.5 text-white'
             }
@@ -249,9 +259,9 @@ export function KitchenVisualizer({
         </p>
         <ul
           className={
-            compactEmbed
+            compactLayout
               ? 'mt-3 flex flex-col gap-2 text-xs text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:text-sm'
-              : 'mt-5 flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm text-slate-600'
+              : 'mt-4 flex flex-col gap-2 text-sm text-slate-600 sm:mt-5 sm:flex-row sm:flex-wrap sm:gap-x-6'
           }
         >
           <li className="flex items-center gap-2">

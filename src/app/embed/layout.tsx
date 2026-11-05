@@ -1,6 +1,9 @@
 export default function EmbedLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div data-kv-embed-root className="kv-embed-root w-full min-w-0 max-w-full overflow-x-hidden">
+    <div
+      data-kv-embed-root
+      className="kv-embed-root mx-auto w-full min-w-0 max-w-6xl overflow-x-hidden px-4 py-2 sm:px-6"
+    >
       {children}
     </div>
   );
