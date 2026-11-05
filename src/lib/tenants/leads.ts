@@ -88,3 +88,20 @@ export async function countLeadsByStatus(clientId: string): Promise<Record<LeadS
     closed: leads.filter((lead) => lead.status === 'closed').length,
   };
 }
+
+export interface ClientSampleRequestStats {
+  /** Aantal ingediende sample-aanvragen (leads) */
+  requestCount: number;
+  /** Totaal aantal gekozen samples over alle aanvragen */
+  sampleCount: number;
+}
+
+export async function getClientSampleRequestStats(
+  clientId: string,
+): Promise<ClientSampleRequestStats> {
+  const leads = await listLeadsForClient(clientId);
+  return {
+    requestCount: leads.length,
+    sampleCount: leads.reduce((sum, lead) => sum + lead.samples.length, 0),
+  };
+}

@@ -16,6 +16,10 @@ interface AdminClient extends TenantClientPublic {
     limit: number | null;
     periodKey: string;
   } | null;
+  sampleStats?: {
+    requestCount: number;
+    sampleCount: number;
+  };
 }
 
 interface ClientFormState {
@@ -405,6 +409,18 @@ export function AdminClients() {
                               ? ` / ${client.monthlyVisualizationLimit}`
                               : ' (onbeperkt)'}
                           </strong>
+                        </p>
+                        <p className="text-sm text-slate-600">
+                          Sample-aanvragen:{' '}
+                          <strong>{client.sampleStats?.requestCount ?? 0}</strong>
+                          {(client.sampleStats?.sampleCount ?? 0) > 0 && (
+                            <>
+                              {' '}
+                              (
+                              <strong>{client.sampleStats?.sampleCount ?? 0}</strong> samples
+                              totaal)
+                            </>
+                          )}
                         </p>
                       </div>
                       <div className="flex flex-wrap items-center gap-2">

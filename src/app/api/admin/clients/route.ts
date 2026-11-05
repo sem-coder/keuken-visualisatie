@@ -8,6 +8,7 @@ import {
   getEmbedUrl,
   listClients,
 } from '@/lib/tenants/clients';
+import { getClientSampleRequestStats } from '@/lib/tenants/leads';
 import type { CreateClientInput } from '@/lib/tenants/types';
 
 export const runtime = 'nodejs';
@@ -39,7 +40,10 @@ export async function GET(request: Request) {
   const clientsWithQuota = await Promise.all(
     clients.map(async (client) => {
       const tenant = await getClientById(client.id);
-      const quota = tenant ? await getVisualizationQuotaStatus(tenant) : null;
+      const [quota, sampleStats] = await Promise.all([
+        tenant ? getVisualizationQuotaStatus(tenant) : Promise.resolve(null),
+        getClientSampleRequestStats(client.id),
+      ]);
       return {
         ...withEmbedData(client, baseUrl),
         visualizationQuota: quota
@@ -49,6 +53,7 @@ export async function GET(request: Request) {
               periodKey: quota.periodKey,
             }
           : null,
+        sampleStats,
       };
     }),
   );
