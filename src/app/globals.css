@@ -47,11 +47,16 @@ html.kv-embed video {
   height: auto;
 }
 
-/* Next/Image fill mag niet door height:auto worden opengetrokken */
-html:has([data-kv-embed-root]) img:not([data-nimg]),
-html.kv-embed img:not([data-nimg]) {
+/* Alleen losse content-afbeeldingen; niet sliders / Next fill */
+html:has([data-kv-embed-root]) img:not([data-nimg]):not(.kv-fit-img),
+html.kv-embed img:not([data-nimg]):not(.kv-fit-img) {
   max-width: 100%;
   height: auto;
+}
+
+html:has([data-kv-embed-root]) img.kv-fit-img,
+html.kv-embed img.kv-fit-img {
+  max-width: none;
 }
 
 @keyframes fade-in {

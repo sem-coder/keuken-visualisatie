@@ -7,6 +7,7 @@ import {
   useState,
   type KeyboardEvent,
   type PointerEvent as ReactPointerEvent,
+  type SyntheticEvent,
 } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +17,12 @@ interface BeforeAfterSliderProps {
   beforeLabel?: string;
   afterLabel?: string;
   className?: string;
+}
+
+function readAspectRatio(event: SyntheticEvent<HTMLImageElement>): number | null {
+  const { naturalWidth, naturalHeight } = event.currentTarget;
+  if (!naturalWidth || !naturalHeight) return null;
+  return naturalWidth / naturalHeight;
 }
 
 export function BeforeAfterSlider({
@@ -28,6 +35,19 @@ export function BeforeAfterSlider({
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null);
+
+  const syncAspectRatio = useCallback((ratio: number | null) => {
+    if (!ratio) return;
+    setAspectRatio((current) => {
+      if (current === null) return ratio;
+      return Math.abs(current - ratio) > 0.01 ? ratio : current;
+    });
+  }, []);
+
+  useEffect(() => {
+    setAspectRatio(null);
+  }, [beforeSrc, afterSrc]);
 
   const updatePosition = useCallback((clientX: number) => {
     const container = containerRef.current;
@@ -69,13 +89,18 @@ export function BeforeAfterSlider({
     return () => window.removeEventListener('pointerup', handleGlobalPointerUp);
   }, []);
 
+  const imgClass =
+    'kv-fit-img pointer-events-none absolute inset-0 h-full w-full max-h-full max-w-full object-contain object-center';
+
   return (
     <div
       ref={containerRef}
       className={cn(
-        'relative aspect-[4/3] w-full select-none overflow-hidden rounded-xl border border-slate-200 bg-slate-100 touch-none shadow-sm',
+        'relative w-full max-h-[min(72vh,640px)] select-none overflow-hidden rounded-xl border border-slate-200 bg-slate-100 touch-none shadow-sm',
+        aspectRatio === null && 'aspect-[4/3]',
         className,
       )}
+      style={aspectRatio !== null ? { aspectRatio: `${aspectRatio}` } : undefined}
       role="slider"
       aria-label="Vergelijk voor en na"
       aria-valuemin={0}
@@ -88,8 +113,9 @@ export function BeforeAfterSlider({
       <img
         src={afterSrc}
         alt={afterLabel}
-        className="absolute inset-0 h-full w-full object-contain"
+        className={imgClass}
         draggable={false}
+        onLoad={(event) => syncAspectRatio(readAspectRatio(event))}
       />
 
       <div
@@ -100,8 +126,9 @@ export function BeforeAfterSlider({
         <img
           src={beforeSrc}
           alt={beforeLabel}
-          className="absolute inset-0 h-full w-full object-contain"
+          className={imgClass}
           draggable={false}
+          onLoad={(event) => syncAspectRatio(readAspectRatio(event))}
         />
       </div>
 

@@ -13,7 +13,7 @@ export function SelectedSamples() {
   if (selectedSampleIds.length === 0) return null;
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {selectedSampleIds.map((id) => {
         const material = getMaterialById(id);
         if (!material) return null;
