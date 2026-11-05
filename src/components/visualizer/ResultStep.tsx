@@ -82,7 +82,9 @@ export function ResultStep() {
                 Je bekijkt
               </p>
               <p className="font-semibold text-slate-900">{material.name}</p>
-              <p className="text-sm text-slate-500">{material.code}</p>
+              <p className="text-sm text-slate-500">
+                {material.category} · {material.code}
+              </p>
             </div>
           </div>
 

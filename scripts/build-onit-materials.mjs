@@ -26,9 +26,9 @@ const catalog = [
   { family: 'single-color', name: 'Mesa', code: 'SC 162' },
   { family: 'single-color', name: 'Balm Ice 2.0', code: 'SC 207' },
   { family: 'single-color', name: 'Truffle', code: 'SC 161' },
-  { family: 'single-color', name: 'Balm Heaven', code: 'SC 195' },
+  { family: 'single-color', name: 'Balm Heaven', code: 'S 185' },
   { family: 'single-color', name: 'Sunflower', code: 'S 146' },
-  { family: 'single-color', name: 'Basswood', code: 'S 212' },
+  { family: 'wood', name: 'Basswood 2.0', code: 'SC 251' },
   { family: 'single-color', name: 'Ivy 2.0', code: 'SC 255' },
   { family: 'single-color', name: 'Sand 2.0', code: 'SC 155' },
   { family: 'single-color', name: 'Rosette', code: 'SC 165' },
@@ -132,8 +132,68 @@ const catalog = [
   { family: 'metal', name: 'Corten', code: 'ME 005' },
 ];
 
+/** Alleen handmatige catalogus (~115). Zet ONIT_IMPORT_ALL=1 om alles uit mediapack te mergen. */
+const IMPORT_ALL_MEDIA_PACK = process.env.ONIT_IMPORT_ALL === '1';
+
+/** SC codes that are wood-grain wraps, not solid single-color films. */
+const WOOD_TEXTURE_SC_CODES = new Set(['SC251']);
+
 function normalizeCode(code) {
   return code.replace(/\s+/g, '').toUpperCase();
+}
+
+function formatDisplayCode(codeNorm) {
+  const match = codeNorm.match(/^([A-Z]+)(\d+)$/);
+  if (match) return `${match[1]} ${match[2]}`;
+  return codeNorm;
+}
+
+function parseOverviewFilename(filename) {
+  const match = filename.match(/^([A-Z0-9]+)-(.+)-Overview\.(webp|jpe?g|png)$/i);
+  if (!match) return null;
+  return { codeNorm: match[1].toUpperCase(), rawName: match[2] };
+}
+
+function formatProductNameFromFile(rawName) {
+  let name = rawName.replace(/2-0/gi, '2.0').replace(/-/g, ' ');
+  name = name.replace(/([a-z])([A-Z0-9])/g, '$1 $2');
+  name = name.replace(/([A-Za-z])(\d+\.?\d*)/g, '$1 $2');
+  name = name.replace(/\s+/g, ' ').trim();
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+function inferFamilyFromCode(codeNorm) {
+  if (WOOD_TEXTURE_SC_CODES.has(codeNorm)) return 'wood';
+  if (/^(WD|WO|W\d|ZX|SPW|PW)/.test(codeNorm)) return 'wood';
+  if (/^(ST|LE|PS|NS|PM|PNC)/.test(codeNorm)) return 'stone';
+  if (/^ME/.test(codeNorm)) return 'metal';
+  if (/^(SC|S|AB)/.test(codeNorm)) return 'single-color';
+  return 'single-color';
+}
+
+function collectMediaPackCatalogEntries(overviewByDir) {
+  const byCode = new Map();
+
+  for (const { dir, files } of overviewByDir) {
+    for (const file of files) {
+      const parsed = parseOverviewFilename(file);
+      if (!parsed || byCode.has(parsed.codeNorm)) continue;
+      byCode.set(parsed.codeNorm, {
+        family: inferFamilyFromCode(parsed.codeNorm),
+        name: formatProductNameFromFile(parsed.rawName),
+        code: formatDisplayCode(parsed.codeNorm),
+        codeNorm: parsed.codeNorm,
+        sourceFile: file,
+        sourceDir: dir,
+      });
+    }
+  }
+
+  return byCode;
 }
 
 function slugify(name, code) {
@@ -149,7 +209,6 @@ function slugify(name, code) {
 /** Supplier code on order docs may differ from ONIT media filenames. */
 const FILE_CODE_OVERRIDES = {
   S200: 'SC252',
-  S212: 'SC251',
   S214: 'SC203',
   S239: 'SC223',
   S145: 'SC154',
@@ -241,10 +300,10 @@ function familyToType(family) {
 }
 
 function familyLabel(family) {
-  if (family === 'single-color') return 'Single Color';
-  if (family === 'wood') return 'Wood';
-  if (family === 'stone') return 'Aanrechtblad';
-  return 'Metal';
+  if (family === 'single-color') return 'Kleur';
+  if (family === 'wood') return 'Hout';
+  if (family === 'stone') return 'Aanrecht';
+  return 'Metaal';
 }
 
 const overviewByDir = OVERVIEW_DIRS.filter((dir) => fs.existsSync(dir)).map((dir) => ({
@@ -253,13 +312,28 @@ const overviewByDir = OVERVIEW_DIRS.filter((dir) => fs.existsSync(dir)).map((dir
 }));
 const rapportFiles = fs.existsSync(RAPPORT_DIR) ? fs.readdirSync(RAPPORT_DIR) : [];
 
+const mediaPackByCode = collectMediaPackCatalogEntries(overviewByDir);
+const manualCodeNorms = new Set(catalog.map((item) => normalizeCode(item.code)));
+
+const mergedCatalog = [...catalog];
+if (IMPORT_ALL_MEDIA_PACK) {
+  for (const [codeNorm, entry] of mediaPackByCode) {
+    if (manualCodeNorms.has(codeNorm)) continue;
+    mergedCatalog.push({
+      family: entry.family,
+      name: entry.name,
+      code: entry.code,
+    });
+  }
+}
+
 fs.mkdirSync(OUT_PUBLIC, { recursive: true });
 
 const materials = [];
 const missing = [];
 const usedDestNames = new Set();
 
-for (const item of catalog) {
+for (const item of mergedCatalog) {
   const codeNorm = normalizeCode(item.code);
   const match = findMediaFile(codeNorm, item.name, overviewByDir, rapportFiles);
   let imagePath;
@@ -301,7 +375,9 @@ for (const file of fs.readdirSync(OUT_PUBLIC)) {
 fs.mkdirSync(path.dirname(OUT_JSON), { recursive: true });
 fs.writeFileSync(OUT_JSON, JSON.stringify({ materials, missing }, null, 2));
 
-console.log(`Materials: ${materials.length}, missing images: ${missing.length}`);
+console.log(
+  `Materials: ${materials.length} (${catalog.length} handmatig + ${materials.length - catalog.length} uit mediapack), missing images: ${missing.length}`,
+);
 if (missing.length) {
   console.log('Missing:', missing.map((m) => `${m.name} (${m.codeNorm})`).join(', '));
 }
