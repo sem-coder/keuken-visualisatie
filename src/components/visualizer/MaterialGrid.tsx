@@ -20,7 +20,7 @@ export function MaterialGrid({
   viewedMaterialIds,
   onSelect,
 }: MaterialGridProps) {
-  const [filter, setFilter] = useState<MaterialFilter>('all');
+  const [filter, setFilter] = useState<MaterialFilter>('single-color');
   const [search, setSearch] = useState('');
   const {
     selectedSampleIds,
@@ -31,7 +31,7 @@ export function MaterialGrid({
   const materials = useMemo(() => {
     const query = search.trim().toLowerCase();
     return getActiveMaterials().filter((material) => {
-      const matchesFilter = filter === 'all' || material.family === filter;
+      const matchesFilter = material.family === filter;
 
       const matchesSearch =
         !query ||

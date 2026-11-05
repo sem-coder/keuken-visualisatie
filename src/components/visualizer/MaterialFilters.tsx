@@ -6,7 +6,6 @@ import type { MaterialFilter } from '@/types/visualizer';
 import { cn } from '@/lib/utils';
 
 const filters: { value: MaterialFilter; label: string }[] = [
-  { value: 'all', label: 'Alles' },
   { value: 'single-color', label: 'Kleur' },
   { value: 'wood', label: 'Hout' },
   { value: 'stone', label: 'Aanrecht' },

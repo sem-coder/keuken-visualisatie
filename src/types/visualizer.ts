@@ -63,4 +63,4 @@ export interface SampleRequestPayload {
   attribution?: Attribution;
 }
 
-export type MaterialFilter = 'all' | 'single-color' | 'wood' | 'stone' | 'metal';
+export type MaterialFilter = 'single-color' | 'wood' | 'stone' | 'metal';
