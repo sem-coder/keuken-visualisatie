@@ -1,22 +1,32 @@
 import { NextResponse } from 'next/server';
 import { createVisualizationProvider } from '@/lib/ai/openai-provider';
+import { getVisualizationQuotaStatus } from '@/lib/analytics/visualizationQuota';
 import { logVisualizationEvent } from '@/lib/analytics/store';
 import { estimateVisualizationCostUsd } from '@/lib/analytics/cost';
 import { getMaterialById, type Material } from '@/lib/materials';
 import { getPublicVisualizationError } from '@/lib/ai/publicVisualizationError';
+import { getClientBySlug } from '@/lib/tenants/clients';
 import { config, isAcceptedImageType } from '@/lib/config';
 
 export const runtime = 'nodejs';
 export const maxDuration = 120;
 
+function normalizeClientSlug(value: FormDataEntryValue | null): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const slug = value.trim().toLowerCase();
+  return slug || undefined;
+}
+
 export async function POST(request: Request) {
   let materialId = 'unknown';
   let material: Material | undefined;
+  let clientSlug: string | undefined;
 
   try {
     const formData = await request.formData();
     const image = formData.get('image');
     const materialIdValue = formData.get('materialId');
+    clientSlug = normalizeClientSlug(formData.get('clientSlug'));
     materialId = typeof materialIdValue === 'string' ? materialIdValue : 'unknown';
     material = getMaterialById(materialId);
 
@@ -38,6 +48,28 @@ export async function POST(request: Request) {
 
     if (!material) {
       return NextResponse.json({ error: 'Materiaal niet gevonden' }, { status: 404 });
+    }
+
+    if (clientSlug) {
+      const client = await getClientBySlug(clientSlug);
+      if (!client) {
+        return NextResponse.json({ error: 'Klant niet gevonden' }, { status: 404 });
+      }
+
+      const quota = await getVisualizationQuotaStatus(client);
+      if (!quota.allowed) {
+        return NextResponse.json(
+          {
+            error: `Het maandlimiet voor AI-visualisaties is bereikt (${quota.used}/${quota.limit}). Probeer het volgende maand opnieuw of vraag direct samples aan.`,
+            quota: {
+              used: quota.used,
+              limit: quota.limit,
+              periodKey: quota.periodKey,
+            },
+          },
+          { status: 429 },
+        );
+      }
     }
 
     const arrayBuffer = await image.arrayBuffer();
@@ -65,6 +97,7 @@ export async function POST(request: Request) {
       totalTokens: usage.totalTokens,
       estimatedCostUsd: estimateVisualizationCostUsd(usage, { mockMode, model: result.model }),
       success: true,
+      clientSlug,
     });
 
     const imageDataUrl = `data:${result.mimeType};base64,${result.imageBase64}`;
@@ -90,6 +123,7 @@ export async function POST(request: Request) {
       estimatedCostUsd: 0,
       success: false,
       errorMessage: error instanceof Error ? error.message : 'Onbekende fout',
+      clientSlug,
     });
 
     const { message, status } = getPublicVisualizationError(error);

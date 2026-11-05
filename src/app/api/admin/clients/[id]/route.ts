@@ -32,6 +32,7 @@ export async function PATCH(
     websiteUrl?: string;
     password?: string;
     active?: boolean;
+    monthlyVisualizationLimit?: number;
   };
 
   try {

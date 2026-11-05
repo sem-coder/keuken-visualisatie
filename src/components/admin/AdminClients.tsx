@@ -11,6 +11,11 @@ import type { TenantClientPublic } from '@/lib/tenants/types';
 interface AdminClient extends TenantClientPublic {
   embedUrl: string;
   embedSnippet: string;
+  visualizationQuota?: {
+    used: number;
+    limit: number | null;
+    periodKey: string;
+  } | null;
 }
 
 interface ClientFormState {
@@ -20,6 +25,7 @@ interface ClientFormState {
   websiteUrl: string;
   password: string;
   active: boolean;
+  monthlyVisualizationLimit: string;
 }
 
 function emptyForm(): ClientFormState {
@@ -30,6 +36,7 @@ function emptyForm(): ClientFormState {
     websiteUrl: '',
     password: '',
     active: true,
+    monthlyVisualizationLimit: '150',
   };
 }
 
@@ -41,7 +48,18 @@ function formFromClient(client: AdminClient): ClientFormState {
     websiteUrl: client.websiteUrl ?? '',
     password: '',
     active: client.active,
+    monthlyVisualizationLimit: String(client.monthlyVisualizationLimit ?? 150),
   };
+}
+
+function parseVisualizationLimitInput(value: string): number {
+  const trimmed = value.trim();
+  if (!trimmed) return 150;
+  const parsed = Number.parseInt(trimmed, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error('Visualisatielimiet moet 0 (onbeperkt) of een positief getal zijn');
+  }
+  return parsed;
 }
 
 export function AdminClients() {
@@ -104,6 +122,9 @@ export function AdminClients() {
           slug: createForm.slug || undefined,
           websiteUrl: createForm.websiteUrl || undefined,
           password: createForm.password,
+          monthlyVisualizationLimit: parseVisualizationLimitInput(
+            createForm.monthlyVisualizationLimit,
+          ),
         }),
       });
 
@@ -150,6 +171,9 @@ export function AdminClients() {
           websiteUrl: editForm.websiteUrl,
           active: editForm.active,
           password: editForm.password || undefined,
+          monthlyVisualizationLimit: parseVisualizationLimitInput(
+            editForm.monthlyVisualizationLimit,
+          ),
         }),
       });
 
@@ -219,6 +243,28 @@ export function AdminClients() {
           onChange={(event) => setForm((current) => ({ ...current, websiteUrl: event.target.value }))}
           placeholder="https://"
         />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor={`${options.isCreate ? 'create' : 'edit'}-viz-limit`}>
+          AI-visualisaties per maand
+        </Label>
+        <Input
+          id={`${options.isCreate ? 'create' : 'edit'}-viz-limit`}
+          type="number"
+          min={0}
+          step={1}
+          value={form.monthlyVisualizationLimit}
+          onChange={(event) =>
+            setForm((current) => ({
+              ...current,
+              monthlyVisualizationLimit: event.target.value,
+            }))
+          }
+          placeholder="150"
+        />
+        <p className="text-xs text-slate-500">
+          Standaard 150. Zet op 0 voor onbeperkt (kalendermaand, NL-tijd).
+        </p>
       </div>
       <div className="space-y-2 sm:col-span-2">
         <Label htmlFor={`${options.isCreate ? 'create' : 'edit'}-password`}>
@@ -351,6 +397,15 @@ export function AdminClients() {
                         {client.websiteUrl && (
                           <p className="text-sm text-slate-500">{client.websiteUrl}</p>
                         )}
+                        <p className="mt-2 text-sm text-slate-600">
+                          AI-visualisaties deze maand:{' '}
+                          <strong>
+                            {client.visualizationQuota?.used ?? 0}
+                            {client.monthlyVisualizationLimit > 0
+                              ? ` / ${client.monthlyVisualizationLimit}`
+                              : ' (onbeperkt)'}
+                          </strong>
+                        </p>
                       </div>
                       <div className="flex flex-wrap items-center gap-2">
                         <span

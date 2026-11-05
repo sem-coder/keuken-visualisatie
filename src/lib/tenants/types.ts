@@ -10,6 +10,8 @@ export interface TenantClient {
   websiteUrl?: string;
   passwordHash: string;
   active: boolean;
+  /** Successful AI visualizations per calendar month (Europe/Amsterdam). 0 = unlimited. */
+  monthlyVisualizationLimit?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -21,6 +23,7 @@ export interface TenantClientPublic {
   email: string;
   websiteUrl?: string;
   active: boolean;
+  monthlyVisualizationLimit: number;
 }
 
 export interface Lead {
@@ -53,6 +56,7 @@ export interface CreateClientInput {
   email: string;
   password: string;
   websiteUrl?: string;
+  monthlyVisualizationLimit?: number;
 }
 
 export interface RegisterClientInput {
@@ -70,4 +74,5 @@ export interface UpdateClientInput {
   websiteUrl?: string;
   password?: string;
   active?: boolean;
+  monthlyVisualizationLimit?: number;
 }

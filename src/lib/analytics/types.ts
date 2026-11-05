@@ -16,6 +16,7 @@ export interface VisualizationAnalyticsEvent {
   estimatedCostUsd: number;
   success: boolean;
   errorMessage?: string;
+  clientSlug?: string;
 }
 
 export interface SampleRequestAnalyticsEvent {

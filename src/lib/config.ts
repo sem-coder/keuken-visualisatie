@@ -1,4 +1,6 @@
 export const config = {
+  /** 0 in admin = unlimited; new clients get this default cap */
+  defaultMonthlyVisualizationLimit: 150,
   maxImageSizeBytes: 10 * 1024 * 1024,
   acceptedImageTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'] as const,
   maxSamples: 2,

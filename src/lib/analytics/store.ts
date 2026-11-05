@@ -196,3 +196,10 @@ export async function getRecentVisualizations(): Promise<VisualizationAnalyticsE
     .filter((event): event is VisualizationAnalyticsEvent => event.type === 'visualization')
     .slice(-100);
 }
+
+export async function getAllVisualizationEvents(): Promise<VisualizationAnalyticsEvent[]> {
+  const store = await readStore();
+  return store.events.filter(
+    (event): event is VisualizationAnalyticsEvent => event.type === 'visualization',
+  );
+}

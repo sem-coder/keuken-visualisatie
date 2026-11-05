@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 import { hashPassword } from '@/lib/tenants/password';
 import { readTenantJson, writeTenantJson } from '@/lib/tenants/storage';
+import { config } from '@/lib/config';
 import type {
   ClientRegistry,
   CreateClientInput,
@@ -28,6 +29,13 @@ function normalizeEmail(email: string): string {
   return email.trim().toLowerCase();
 }
 
+function resolveVisualizationLimit(value: number | undefined): number {
+  if (value === undefined || value === null) {
+    return config.defaultMonthlyVisualizationLimit;
+  }
+  return value;
+}
+
 function toPublicClient(client: TenantClient): TenantClientPublic {
   return {
     id: client.id,
@@ -36,6 +44,7 @@ function toPublicClient(client: TenantClient): TenantClientPublic {
     email: client.email ?? '',
     websiteUrl: client.websiteUrl,
     active: client.active,
+    monthlyVisualizationLimit: resolveVisualizationLimit(client.monthlyVisualizationLimit),
   };
 }
 
@@ -43,6 +52,7 @@ function normalizeStoredClient(raw: TenantClient): TenantClient {
   return {
     ...raw,
     email: raw.email ?? '',
+    monthlyVisualizationLimit: resolveVisualizationLimit(raw.monthlyVisualizationLimit),
   };
 }
 
@@ -105,6 +115,7 @@ async function insertClient(
     password: string;
     websiteUrl?: string;
     slug?: string;
+    monthlyVisualizationLimit?: number;
   },
 ): Promise<TenantClient> {
   const email = normalizeEmail(input.email);
@@ -133,6 +144,7 @@ async function insertClient(
     websiteUrl: input.websiteUrl?.trim() || undefined,
     passwordHash: hashPassword(input.password),
     active: true,
+    monthlyVisualizationLimit: resolveVisualizationLimit(input.monthlyVisualizationLimit),
     createdAt: now,
     updatedAt: now,
   };
@@ -197,6 +209,13 @@ export async function updateClient(
     client.passwordHash = hashPassword(input.password);
   }
   if (input.active !== undefined) client.active = input.active;
+  if (input.monthlyVisualizationLimit !== undefined) {
+    const limit = input.monthlyVisualizationLimit;
+    if (!Number.isFinite(limit) || limit < 0) {
+      throw new Error('Visualisatielimiet moet 0 (onbeperkt) of een positief getal zijn');
+    }
+    client.monthlyVisualizationLimit = Math.floor(limit);
+  }
   client.updatedAt = new Date().toISOString();
 
   registry.clients[index] = client;

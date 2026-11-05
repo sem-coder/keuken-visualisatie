@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin/auth-server';
+import { getVisualizationQuotaStatus } from '@/lib/analytics/visualizationQuota';
 import {
   createClient,
+  getClientById,
   getEmbedSnippet,
   getEmbedUrl,
   listClients,
@@ -34,8 +36,25 @@ export async function GET(request: Request) {
   const clients = await listClients();
   const baseUrl = getBaseUrl(request);
 
+  const clientsWithQuota = await Promise.all(
+    clients.map(async (client) => {
+      const tenant = await getClientById(client.id);
+      const quota = tenant ? await getVisualizationQuotaStatus(tenant) : null;
+      return {
+        ...withEmbedData(client, baseUrl),
+        visualizationQuota: quota
+          ? {
+              used: quota.used,
+              limit: quota.limit,
+              periodKey: quota.periodKey,
+            }
+          : null,
+      };
+    }),
+  );
+
   return NextResponse.json({
-    clients: clients.map((client) => withEmbedData(client, baseUrl)),
+    clients: clientsWithQuota,
     baseUrl,
   });
 }

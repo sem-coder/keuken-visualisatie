@@ -123,6 +123,10 @@ export function KitchenVisualizer({
       const formData = new FormData();
       formData.append('image', originalImage);
       formData.append('materialId', materialId);
+      const slug = useKitchenVisualizer.getState().clientSlug;
+      if (slug) {
+        formData.append('clientSlug', slug);
+      }
 
       try {
         const response = await fetch('/api/visualize', {
