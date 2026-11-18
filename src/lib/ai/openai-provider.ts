@@ -1,6 +1,10 @@
 import OpenAI, { toFile } from 'openai';
 import { buildKitchenVisualizationPrompt } from '@/lib/ai/buildKitchenVisualizationPrompt';
 import {
+  loadMaterialSwatchBuffer,
+  materialSwatchMimeType,
+} from '@/lib/ai/loadMaterialSwatch';
+import {
   getImageDimensions,
   normalizeToInputSize,
   pickOpenAiSize,
@@ -34,7 +38,9 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
   async generate(request: VisualizationRequest): Promise<VisualizationResult> {
     const buffer = bufferFromRequest(request);
     const mimeType = mimeFromRequest(request);
-    const prompt = buildKitchenVisualizationPrompt(request.material);
+    const swatchBuffer = loadMaterialSwatchBuffer(request.material);
+    const hasSwatchReference = swatchBuffer !== null;
+    const prompt = buildKitchenVisualizationPrompt(request.material, { hasSwatchReference });
     const model = config.openAiModel;
     const quality = config.openAiImageQuality;
     const inputFidelity = config.openAiInputFidelity;
@@ -42,11 +48,17 @@ export class OpenAIVisualizationProvider implements VisualizationProvider {
     const { width, height } = await getImageDimensions(buffer);
     const size = pickOpenAiSize(width, height);
 
-    const file = await toFile(buffer, 'kitchen.jpg', { type: mimeType });
+    const kitchenFile = await toFile(buffer, 'kitchen.jpg', { type: mimeType });
+    const editImages: Awaited<ReturnType<typeof toFile>>[] = [kitchenFile];
+
+    if (swatchBuffer) {
+      const swatchMime = materialSwatchMimeType(request.material);
+      editImages.push(await toFile(swatchBuffer, 'material-swatch.webp', { type: swatchMime }));
+    }
 
     const response = await this.client.images.edit({
       model,
-      image: file,
+      image: editImages.length === 1 ? kitchenFile : editImages,
       prompt,
       input_fidelity: inputFidelity,
       quality,

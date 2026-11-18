@@ -56,6 +56,7 @@ export function KitchenVisualizer({
   } = useKitchenVisualizer();
 
   const [generationFailed, setGenerationFailed] = useState(false);
+  const [generatingMaterialIds, setGeneratingMaterialIds] = useState<string[]>([]);
   useEmbedDocument();
   const inIframe = useInIframe();
   const layout: EmbedLayout =
@@ -118,27 +119,31 @@ export function KitchenVisualizer({
     ) => {
       const material = getMaterialById(materialId);
       if (!material || !originalImage) return false;
+      const requestedMaterialId = material.id;
 
-      const cached = useKitchenVisualizer.getState().visualizations[materialId];
+      const cached = useKitchenVisualizer.getState().visualizations[requestedMaterialId];
       if (cached) {
         if (options?.navigateToResult !== false) {
-          setActiveMaterialId(materialId);
+          setActiveMaterialId(requestedMaterialId);
           setStep('result');
         }
         return true;
       }
 
-      setActiveMaterialId(materialId);
+      setGeneratingMaterialIds((current) =>
+        current.includes(requestedMaterialId) ? current : [...current, requestedMaterialId],
+      );
+      setActiveMaterialId(requestedMaterialId);
       setGenerationError(null);
       setGenerationFailed(false);
       if (!options?.silent) {
         setStep('generating');
       }
-      sendEmbedEvent('visualization_started', { materialId });
+      sendEmbedEvent('visualization_started', { materialId: requestedMaterialId });
 
       const formData = new FormData();
       formData.append('image', originalImage);
-      formData.append('materialId', materialId);
+      formData.append('materialId', requestedMaterialId);
       const slug = useKitchenVisualizer.getState().clientSlug;
       if (slug) {
         formData.append('clientSlug', slug);
@@ -170,10 +175,11 @@ export function KitchenVisualizer({
           imageUrl = await createMockVisualization(originalPreviewUrl, material);
         }
 
-        addVisualization({ materialId, imageUrl });
-        sendEmbedEvent('visualization_completed', { materialId });
+        addVisualization({ materialId: requestedMaterialId, imageUrl });
+        sendEmbedEvent('visualization_completed', { materialId: requestedMaterialId });
 
         if (options?.navigateToResult !== false) {
+          setActiveMaterialId(requestedMaterialId);
           setStep('result');
         }
 
@@ -183,9 +189,13 @@ export function KitchenVisualizer({
         setGenerationError(
           error instanceof Error ? error.message : 'Visualisatie mislukt',
         );
-        sendEmbedEvent('visualization_failed', { materialId });
+        sendEmbedEvent('visualization_failed', { materialId: requestedMaterialId });
         setStep('colors');
         return false;
+      } finally {
+        setGeneratingMaterialIds((current) =>
+          current.filter((id) => id !== requestedMaterialId),
+        );
       }
     },
     [
@@ -220,17 +230,15 @@ export function KitchenVisualizer({
     setGenerationError(null);
     setGenerationFailed(false);
 
-    const results = await Promise.all(
-      missing.map((materialId) =>
-        generateMaterialVisualization(materialId, {
-          navigateToResult: false,
-          silent: true,
-        }),
-      ),
-    );
-
-    if (results.some((success) => !success)) {
-      return;
+    for (const materialId of missing) {
+      const success = await generateMaterialVisualization(materialId, {
+        navigateToResult: false,
+        silent: true,
+      });
+      if (!success) {
+        setStep('samples');
+        return;
+      }
     }
 
     setStep('samples');
@@ -325,7 +333,10 @@ export function KitchenVisualizer({
         <ColorStep onGenerate={handleGenerate} onGenerateSelected={handleGenerateSelected} />
       )}
       {step === 'generating' && originalPreviewUrl && (
-        <GeneratingState originalImageUrl={originalPreviewUrl} />
+        <GeneratingState
+          originalImageUrl={originalPreviewUrl}
+          generatingMaterialIds={generatingMaterialIds}
+        />
       )}
       {step === 'result' && <ResultStep />}
       {step === 'samples' && (

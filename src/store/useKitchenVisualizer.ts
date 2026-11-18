@@ -82,7 +82,15 @@ export const useKitchenVisualizer = create<KitchenVisualizerState>((set, get) =>
   setStep: (step) => set({ step }),
 
   setOriginalImage: (file, previewUrl) =>
-    set({ originalImage: file, originalPreviewUrl: previewUrl }),
+    set({
+      originalImage: file,
+      originalPreviewUrl: previewUrl,
+      visualizations: {},
+      viewedMaterialIds: [],
+      activeMaterialId: null,
+      generationError: null,
+      kitchenImageStorageKey: null,
+    }),
 
   setKitchenImageStorageKey: (key) => set({ kitchenImageStorageKey: key }),
 

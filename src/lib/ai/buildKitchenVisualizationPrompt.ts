@@ -1,7 +1,16 @@
 import type { Material } from '@/lib/materials';
 
-function buildCabinetWrapPrompt(material: Material): string {
+function referenceSwatchBlock(material: Material, hasSwatchReference: boolean): string {
+  if (!hasSwatchReference) return '';
+  return `
+A second reference image is included: the official ONIT wrap swatch for "${material.name}" (product code ${material.code}).
+The cabinet wrap color, tone, and surface finish must match this swatch exactly — not a different shade or wood type.
+`;
+}
+
+function buildCabinetWrapPrompt(material: Material, hasSwatchReference = false): string {
   return `Edit the provided photograph of the kitchen.
+${referenceSwatchBlock(material, hasSwatchReference)}
 
 IMPORTANT:
 Preserve the exact original kitchen and photograph.
@@ -61,8 +70,9 @@ Maintain photorealistic:
 The final image must align as closely as possible with the original photograph so that it can be used in a before-and-after comparison.`;
 }
 
-function buildCountertopPrompt(material: Material): string {
+function buildCountertopPrompt(material: Material, hasSwatchReference = false): string {
   return `Edit the provided photograph of the kitchen.
+${referenceSwatchBlock(material, hasSwatchReference)}
 
 IMPORTANT:
 Preserve the exact original kitchen and photograph.
@@ -123,11 +133,24 @@ Maintain photorealistic:
 The final image must align as closely as possible with the original photograph so that it can be used in a before-and-after comparison.`;
 }
 
-export function buildKitchenVisualizationPrompt(material: Material): string {
+export function buildKitchenVisualizationPrompt(
+  material: Material,
+  options?: { hasSwatchReference?: boolean },
+): string {
+  const hasSwatchReference = options?.hasSwatchReference ?? false;
   if (material.family === 'stone') {
-    return buildCountertopPrompt(material);
+    return buildCountertopPrompt(material, hasSwatchReference);
   }
-  return buildCabinetWrapPrompt(material);
+  if (material.family === 'wood') {
+    return buildCabinetWrapPrompt(material, hasSwatchReference).replace(
+      'must match this swatch exactly — not a different shade or wood type',
+      'must match this wood-grain swatch exactly — same grain scale, direction, and tone',
+    );
+  }
+  return buildCabinetWrapPrompt(material, hasSwatchReference).replace(
+    'must match this swatch exactly — not a different shade or wood type',
+    'must match this swatch exactly — solid matte color, not wood grain, not stone',
+  );
 }
 
 export function isCountertopMaterial(material: Material): boolean {

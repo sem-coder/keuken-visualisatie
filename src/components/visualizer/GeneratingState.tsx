@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { getMaterialById } from '@/lib/materials';
 
 const statusMessages = [
   'We bekijken je keuken...',
@@ -26,9 +27,23 @@ const funFacts = [
 
 interface GeneratingStateProps {
   originalImageUrl: string;
+  generatingMaterialIds?: string[];
 }
 
-export function GeneratingState({ originalImageUrl }: GeneratingStateProps) {
+export function GeneratingState({
+  originalImageUrl,
+  generatingMaterialIds = [],
+}: GeneratingStateProps) {
+  const materialLabels = useMemo(
+    () =>
+      generatingMaterialIds
+        .map((id) => {
+          const material = getMaterialById(id);
+          return material ? `${material.name} (${material.code})` : null;
+        })
+        .filter(Boolean) as string[],
+    [generatingMaterialIds],
+  );
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
@@ -73,6 +88,11 @@ export function GeneratingState({ originalImageUrl }: GeneratingStateProps) {
           <p className="text-sm font-medium text-slate-900">{statusMessages[statusIndex]}</p>
           <span className="text-sm tabular-nums text-brand-blue-700">{progress}%</span>
         </div>
+        {materialLabels.length > 0 && (
+          <p className="mt-2 text-sm text-slate-600">
+            Gekozen kleur: <strong className="text-slate-900">{materialLabels.join(' · ')}</strong>
+          </p>
+        )}
 
         <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-slate-100">
           <div
